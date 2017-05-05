@@ -1,0 +1,2029 @@
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>set serveroutput on
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>ALTER SESSION SET NLS_DATE_FORMAT='hh24:mi:ss dd.mm.yyyy';
+
+Session altered.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>clear screen
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>DELETE FROM ps_gfc_stats_ovrd;
+
+0 rows deleted.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit;
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+63 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>DELETE FROM ps_gfc_stats_ovrd;
+
+0 rows deleted.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit;
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>BEGIN
+  2   FOR i IN (SELECT * FROM user_tab_stat_prefs) LOOP
+  3     sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>i.table_name, pname=>i.preference_name);
+  4   END LOOP;
+  5  END;
+  6  /
+
+PL/SQL procedure successfully completed.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
+  2  VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+
+1 row created.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>DELETE FROM ps_gfc_stats_ovrd;
+
+1 row deleted.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit;
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>BEGIN
+  2   FOR i IN (SELECT * FROM user_tab_stat_prefs) LOOP
+  3     sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>i.table_name, pname=>i.preference_name);
+  4   END LOOP;
+  5  END;
+  6  /
+
+PL/SQL procedure successfully completed.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
+  2  VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+
+1 row created.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>set message on
+SP2-0158: unknown SET option "message"
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>update ps_gfc_stats_ovrd set estimate_percent = 'DBMS_STATS.AUTO_SAMPLE_SIZE'
+  2  /
+
+1 row updated.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column table_tabe format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column table_tabe format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>desc user_tab_stat_prefs
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ TABLE_NAME                                            NOT NULL VARCHAR2(30)
+ PREFERENCE_NAME                                                VARCHAR2(30)
+ PREFERENCE_VALUE                                               VARCHAR2(1000)
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column table_table format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_name format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_value format a40
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column table_table format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_name format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_value format a40
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+rows will be truncated
+
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST                                                                            METHOD_OP
+PS_TL_PROF_LIST                                                                            ESTIMATE_
+PS_TL_PROF_LIST                                                                            CASCADE
+PS_TL_PROF_LIST1                                                                           METHOD_OP
+PS_TL_PROF_LIST1                                                                           ESTIMATE_
+PS_TL_PROF_LIST1                                                                           CASCADE
+PS_TL_PROF_LIST10                                                                          METHOD_OP
+PS_TL_PROF_LIST10                                                                          ESTIMATE_
+PS_TL_PROF_LIST10                                                                          CASCADE
+PS_TL_PROF_LIST11                                                                          METHOD_OP
+PS_TL_PROF_LIST11                                                                          ESTIMATE_
+PS_TL_PROF_LIST11                                                                          CASCADE
+PS_TL_PROF_LIST12                                                                          METHOD_OP
+PS_TL_PROF_LIST12                                                                          ESTIMATE_
+PS_TL_PROF_LIST12                                                                          CASCADE
+PS_TL_PROF_LIST13                                                                          METHOD_OP
+PS_TL_PROF_LIST13                                                                          ESTIMATE_
+PS_TL_PROF_LIST13                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          METHOD_OP
+PS_TL_PROF_LIST14                                                                          CASCADE
+PS_TL_PROF_LIST14                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          METHOD_OP
+PS_TL_PROF_LIST15                                                                          ESTIMATE_
+PS_TL_PROF_LIST15                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          METHOD_OP
+PS_TL_PROF_LIST16                                                                          CASCADE
+PS_TL_PROF_LIST16                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          METHOD_OP
+PS_TL_PROF_LIST17                                                                          ESTIMATE_
+PS_TL_PROF_LIST17                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          METHOD_OP
+PS_TL_PROF_LIST18                                                                          CASCADE
+PS_TL_PROF_LIST18                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          METHOD_OP
+PS_TL_PROF_LIST19                                                                          ESTIMATE_
+PS_TL_PROF_LIST19                                                                          CASCADE
+PS_TL_PROF_LIST2                                                                           METHOD_OP
+PS_TL_PROF_LIST2                                                                           ESTIMATE_
+PS_TL_PROF_LIST2                                                                           CASCADE
+PS_TL_PROF_LIST20                                                                          METHOD_OP
+PS_TL_PROF_LIST20                                                                          ESTIMATE_
+PS_TL_PROF_LIST20                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          METHOD_OP
+PS_TL_PROF_LIST21                                                                          CASCADE
+PS_TL_PROF_LIST21                                                                          ESTIMATE_
+PS_TL_PROF_LIST22                                                                          METHOD_OP
+PS_TL_PROF_LIST22                                                                          ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST22                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          METHOD_OP
+PS_TL_PROF_LIST23                                                                          CASCADE
+PS_TL_PROF_LIST23                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          METHOD_OP
+PS_TL_PROF_LIST24                                                                          ESTIMATE_
+PS_TL_PROF_LIST24                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          METHOD_OP
+PS_TL_PROF_LIST25                                                                          CASCADE
+PS_TL_PROF_LIST25                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          METHOD_OP
+PS_TL_PROF_LIST26                                                                          ESTIMATE_
+PS_TL_PROF_LIST26                                                                          CASCADE
+PS_TL_PROF_LIST27                                                                          METHOD_OP
+PS_TL_PROF_LIST27                                                                          ESTIMATE_
+PS_TL_PROF_LIST27                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          METHOD_OP
+PS_TL_PROF_LIST28                                                                          CASCADE
+PS_TL_PROF_LIST28                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          METHOD_OP
+PS_TL_PROF_LIST29                                                                          ESTIMATE_
+PS_TL_PROF_LIST29                                                                          CASCADE
+PS_TL_PROF_LIST3                                                                           METHOD_OP
+PS_TL_PROF_LIST3                                                                           ESTIMATE_
+PS_TL_PROF_LIST3                                                                           CASCADE
+PS_TL_PROF_LIST30                                                                          METHOD_OP
+PS_TL_PROF_LIST30                                                                          CASCADE
+PS_TL_PROF_LIST30                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          METHOD_OP
+PS_TL_PROF_LIST31                                                                          ESTIMATE_
+PS_TL_PROF_LIST31                                                                          CASCADE
+PS_TL_PROF_LIST32                                                                          METHOD_OP
+PS_TL_PROF_LIST32                                                                          ESTIMATE_
+PS_TL_PROF_LIST32                                                                          CASCADE
+PS_TL_PROF_LIST33                                                                          METHOD_OP
+PS_TL_PROF_LIST33                                                                          ESTIMATE_
+PS_TL_PROF_LIST33                                                                          CASCADE
+PS_TL_PROF_LIST34                                                                          METHOD_OP
+PS_TL_PROF_LIST34                                                                          ESTIMATE_
+PS_TL_PROF_LIST34                                                                          CASCADE
+PS_TL_PROF_LIST35                                                                          METHOD_OP
+PS_TL_PROF_LIST35                                                                          ESTIMATE_
+PS_TL_PROF_LIST35                                                                          CASCADE
+PS_TL_PROF_LIST36                                                                          METHOD_OP
+PS_TL_PROF_LIST36                                                                          ESTIMATE_
+PS_TL_PROF_LIST36                                                                          CASCADE
+PS_TL_PROF_LIST37                                                                          METHOD_OP
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST37                                                                          ESTIMATE_
+PS_TL_PROF_LIST37                                                                          CASCADE
+PS_TL_PROF_LIST38                                                                          METHOD_OP
+PS_TL_PROF_LIST38                                                                          ESTIMATE_
+PS_TL_PROF_LIST38                                                                          CASCADE
+PS_TL_PROF_LIST39                                                                          METHOD_OP
+PS_TL_PROF_LIST39                                                                          ESTIMATE_
+PS_TL_PROF_LIST39                                                                          CASCADE
+PS_TL_PROF_LIST4                                                                           METHOD_OP
+PS_TL_PROF_LIST4                                                                           ESTIMATE_
+PS_TL_PROF_LIST4                                                                           CASCADE
+PS_TL_PROF_LIST40                                                                          METHOD_OP
+PS_TL_PROF_LIST40                                                                          ESTIMATE_
+PS_TL_PROF_LIST40                                                                          CASCADE
+PS_TL_PROF_LIST41                                                                          METHOD_OP
+PS_TL_PROF_LIST41                                                                          ESTIMATE_
+PS_TL_PROF_LIST41                                                                          CASCADE
+PS_TL_PROF_LIST42                                                                          METHOD_OP
+PS_TL_PROF_LIST42                                                                          ESTIMATE_
+PS_TL_PROF_LIST42                                                                          CASCADE
+PS_TL_PROF_LIST43                                                                          METHOD_OP
+PS_TL_PROF_LIST43                                                                          ESTIMATE_
+PS_TL_PROF_LIST43                                                                          CASCADE
+PS_TL_PROF_LIST44                                                                          METHOD_OP
+PS_TL_PROF_LIST44                                                                          ESTIMATE_
+PS_TL_PROF_LIST44                                                                          CASCADE
+PS_TL_PROF_LIST45                                                                          METHOD_OP
+PS_TL_PROF_LIST45                                                                          ESTIMATE_
+PS_TL_PROF_LIST45                                                                          CASCADE
+PS_TL_PROF_LIST46                                                                          METHOD_OP
+PS_TL_PROF_LIST46                                                                          ESTIMATE_
+PS_TL_PROF_LIST46                                                                          CASCADE
+PS_TL_PROF_LIST47                                                                          METHOD_OP
+PS_TL_PROF_LIST47                                                                          ESTIMATE_
+PS_TL_PROF_LIST47                                                                          CASCADE
+PS_TL_PROF_LIST48                                                                          METHOD_OP
+PS_TL_PROF_LIST48                                                                          ESTIMATE_
+PS_TL_PROF_LIST48                                                                          CASCADE
+PS_TL_PROF_LIST49                                                                          METHOD_OP
+PS_TL_PROF_LIST49                                                                          ESTIMATE_
+PS_TL_PROF_LIST49                                                                          CASCADE
+PS_TL_PROF_LIST5                                                                           METHOD_OP
+PS_TL_PROF_LIST5                                                                           ESTIMATE_
+PS_TL_PROF_LIST5                                                                           CASCADE
+PS_TL_PROF_LIST50                                                                          METHOD_OP
+PS_TL_PROF_LIST50                                                                          ESTIMATE_
+PS_TL_PROF_LIST50                                                                          CASCADE
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST51                                                                          METHOD_OP
+PS_TL_PROF_LIST51                                                                          ESTIMATE_
+PS_TL_PROF_LIST51                                                                          CASCADE
+PS_TL_PROF_LIST52                                                                          METHOD_OP
+PS_TL_PROF_LIST52                                                                          ESTIMATE_
+PS_TL_PROF_LIST52                                                                          CASCADE
+PS_TL_PROF_LIST53                                                                          METHOD_OP
+PS_TL_PROF_LIST53                                                                          ESTIMATE_
+PS_TL_PROF_LIST53                                                                          CASCADE
+PS_TL_PROF_LIST54                                                                          METHOD_OP
+PS_TL_PROF_LIST54                                                                          ESTIMATE_
+PS_TL_PROF_LIST54                                                                          CASCADE
+PS_TL_PROF_LIST55                                                                          METHOD_OP
+PS_TL_PROF_LIST55                                                                          ESTIMATE_
+PS_TL_PROF_LIST55                                                                          CASCADE
+PS_TL_PROF_LIST56                                                                          METHOD_OP
+PS_TL_PROF_LIST56                                                                          ESTIMATE_
+PS_TL_PROF_LIST56                                                                          CASCADE
+PS_TL_PROF_LIST57                                                                          METHOD_OP
+PS_TL_PROF_LIST57                                                                          ESTIMATE_
+PS_TL_PROF_LIST57                                                                          CASCADE
+PS_TL_PROF_LIST58                                                                          METHOD_OP
+PS_TL_PROF_LIST58                                                                          ESTIMATE_
+PS_TL_PROF_LIST58                                                                          CASCADE
+PS_TL_PROF_LIST59                                                                          METHOD_OP
+PS_TL_PROF_LIST59                                                                          ESTIMATE_
+PS_TL_PROF_LIST59                                                                          CASCADE
+PS_TL_PROF_LIST6                                                                           METHOD_OP
+PS_TL_PROF_LIST6                                                                           ESTIMATE_
+PS_TL_PROF_LIST6                                                                           CASCADE
+PS_TL_PROF_LIST60                                                                          METHOD_OP
+PS_TL_PROF_LIST60                                                                          ESTIMATE_
+PS_TL_PROF_LIST60                                                                          CASCADE
+PS_TL_PROF_LIST61                                                                          METHOD_OP
+PS_TL_PROF_LIST61                                                                          ESTIMATE_
+PS_TL_PROF_LIST61                                                                          CASCADE
+PS_TL_PROF_LIST62                                                                          METHOD_OP
+PS_TL_PROF_LIST62                                                                          ESTIMATE_
+PS_TL_PROF_LIST62                                                                          CASCADE
+PS_TL_PROF_LIST7                                                                           METHOD_OP
+PS_TL_PROF_LIST7                                                                           ESTIMATE_
+PS_TL_PROF_LIST7                                                                           CASCADE
+PS_TL_PROF_LIST8                                                                           METHOD_OP
+PS_TL_PROF_LIST8                                                                           ESTIMATE_
+PS_TL_PROF_LIST8                                                                           CASCADE
+PS_TL_PROF_LIST9                                                                           METHOD_OP
+PS_TL_PROF_LIST9                                                                           ESTIMATE_
+
+TABLE_NAME                                                                                 PREFERENC
+------------------------------------------------------------------------------------------ ---------
+PS_TL_PROF_LIST9                                                                           CASCADE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column table_name format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_name format a20
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>column preference_value format a40
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST      METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST      ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST      CASCADE              TRUE
+PS_TL_PROF_LIST1     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST1     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST1     CASCADE              TRUE
+PS_TL_PROF_LIST10    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST10    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST10    CASCADE              TRUE
+PS_TL_PROF_LIST11    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST11    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST11    CASCADE              TRUE
+PS_TL_PROF_LIST12    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST12    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST12    CASCADE              TRUE
+PS_TL_PROF_LIST13    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST13    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST13    CASCADE              TRUE
+PS_TL_PROF_LIST14    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST14    CASCADE              TRUE
+PS_TL_PROF_LIST14    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST15    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST15    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST15    CASCADE              TRUE
+PS_TL_PROF_LIST16    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST16    CASCADE              TRUE
+PS_TL_PROF_LIST16    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST17    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST17    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST17    CASCADE              TRUE
+PS_TL_PROF_LIST18    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST18    CASCADE              TRUE
+PS_TL_PROF_LIST18    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST19    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST19    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST19    CASCADE              TRUE
+PS_TL_PROF_LIST2     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST2     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST2     CASCADE              TRUE
+PS_TL_PROF_LIST20    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST20    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST20    CASCADE              TRUE
+PS_TL_PROF_LIST21    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST21    CASCADE              TRUE
+PS_TL_PROF_LIST21    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST22    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST22    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST22    CASCADE              TRUE
+PS_TL_PROF_LIST23    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST23    CASCADE              TRUE
+PS_TL_PROF_LIST23    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST24    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST24    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST24    CASCADE              TRUE
+PS_TL_PROF_LIST25    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST25    CASCADE              TRUE
+PS_TL_PROF_LIST25    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST26    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST26    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST26    CASCADE              TRUE
+PS_TL_PROF_LIST27    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST27    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST27    CASCADE              TRUE
+PS_TL_PROF_LIST28    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST28    CASCADE              TRUE
+PS_TL_PROF_LIST28    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST29    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST29    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST29    CASCADE              TRUE
+PS_TL_PROF_LIST3     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST3     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST3     CASCADE              TRUE
+PS_TL_PROF_LIST30    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST30    CASCADE              TRUE
+PS_TL_PROF_LIST30    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST31    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST31    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST31    CASCADE              TRUE
+PS_TL_PROF_LIST32    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST32    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST32    CASCADE              TRUE
+PS_TL_PROF_LIST33    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST33    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST33    CASCADE              TRUE
+PS_TL_PROF_LIST34    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST34    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST34    CASCADE              TRUE
+PS_TL_PROF_LIST35    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST35    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST35    CASCADE              TRUE
+PS_TL_PROF_LIST36    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST36    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST36    CASCADE              TRUE
+PS_TL_PROF_LIST37    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST37    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST37    CASCADE              TRUE
+PS_TL_PROF_LIST38    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST38    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST38    CASCADE              TRUE
+PS_TL_PROF_LIST39    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST39    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST39    CASCADE              TRUE
+PS_TL_PROF_LIST4     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST4     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST4     CASCADE              TRUE
+PS_TL_PROF_LIST40    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST40    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST40    CASCADE              TRUE
+PS_TL_PROF_LIST41    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST41    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST41    CASCADE              TRUE
+PS_TL_PROF_LIST42    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST42    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST42    CASCADE              TRUE
+PS_TL_PROF_LIST43    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST43    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST43    CASCADE              TRUE
+PS_TL_PROF_LIST44    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST44    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST44    CASCADE              TRUE
+PS_TL_PROF_LIST45    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST45    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST45    CASCADE              TRUE
+PS_TL_PROF_LIST46    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST46    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST46    CASCADE              TRUE
+PS_TL_PROF_LIST47    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST47    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST47    CASCADE              TRUE
+PS_TL_PROF_LIST48    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST48    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST48    CASCADE              TRUE
+PS_TL_PROF_LIST49    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST49    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST49    CASCADE              TRUE
+PS_TL_PROF_LIST5     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST5     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST5     CASCADE              TRUE
+PS_TL_PROF_LIST50    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST50    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST50    CASCADE              TRUE
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST51    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST51    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST51    CASCADE              TRUE
+PS_TL_PROF_LIST52    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST52    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST52    CASCADE              TRUE
+PS_TL_PROF_LIST53    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST53    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST53    CASCADE              TRUE
+PS_TL_PROF_LIST54    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST54    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST54    CASCADE              TRUE
+PS_TL_PROF_LIST55    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST55    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST55    CASCADE              TRUE
+PS_TL_PROF_LIST56    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST56    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST56    CASCADE              TRUE
+PS_TL_PROF_LIST57    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST57    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST57    CASCADE              TRUE
+PS_TL_PROF_LIST58    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST58    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST58    CASCADE              TRUE
+PS_TL_PROF_LIST59    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST59    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST59    CASCADE              TRUE
+PS_TL_PROF_LIST6     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST6     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST6     CASCADE              TRUE
+PS_TL_PROF_LIST60    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST60    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST60    CASCADE              TRUE
+PS_TL_PROF_LIST61    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST61    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST61    CASCADE              TRUE
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST7     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST7     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST7     CASCADE              TRUE
+PS_TL_PROF_LIST8     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST8     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST8     CASCADE              TRUE
+PS_TL_PROF_LIST9     METHOD_OPT           FOR ALL COLUMNS SIZE 1
+PS_TL_PROF_LIST9     ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST9     CASCADE              TRUE
+
+189 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>DELETE FROM ps_gfc_stats_ovrd;
+
+1 row deleted.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit;
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>BEGIN
+  2   FOR i IN (SELECT * FROM user_tab_stat_prefs) LOOP
+  3     sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>i.table_name, pname=>i.preference_name);
+  4   END LOOP;
+  5  END;
+  6  /
+
+PL/SQL procedure successfully completed.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  /
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+no rows selected
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>DELETE FROM ps_gfc_stats_ovrd;
+
+0 rows deleted.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit;
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
+  2  VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+
+1 row created.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     42
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>update ps_gfc_stats_ovrd set estimate_percent = 'DBMS_STATS.AUTO_SAMPLE_SIZE'
+  2  /
+
+1 row updated.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     42
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>update ps_gfc_stats_ovrd set estimate_percent = 'DBMS_STATS.AUTO_SAMPLE_SIZE'
+  2  /
+
+1 row updated.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     42
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>update ps_gfc_stats_ovrd set estimate_percent = '4'
+  2  /
+
+1 row updated.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>commit
+  2  /
+
+Commit complete.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>SELECT 	*
+  2  FROM	user_tab_stat_prefs
+  3  WHERE   table_name = 'PS_TL_PROF_LIST62'
+  4  order by table_name
+  5  /
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     DBMS_STATS.AUTO_SAMPLE_SIZE
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>/
+
+TABLE_NAME           PREFERENCE_NAME      PREFERENCE_VALUE
+-------------------- -------------------- ----------------------------------------
+PS_TL_PROF_LIST62    CASCADE              TRUE
+PS_TL_PROF_LIST62    ESTIMATE_PERCENT     4
+PS_TL_PROF_LIST62    METHOD_OPT           FOR ALL COLUMNS SIZE 1
+
+3 rows selected.
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>@gfcpsstats11_metadata
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>REM gfcpsstats11_metadata.sql
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>REM (c) Go-Faster Consultancy 2008-2012
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>------------------------------------------------------------------------------------------
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>--this script containts sample meta data table designed to minimize stats collection in TL
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>--processing these tables need statistics, but not histograms.	Optimizer Dynamic Sample
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>--is sufficient for the other temporary records used by TL_TIMEADMIN
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>--
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>--this list is just a suggestion - it worked at on one system - YOUR MILEAGE MAY VARY
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>------------------------------------------------------------------------------------------
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>clear screen
+
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>set echo on serveroutput on lines 100 wrap off
+SYSADM-HCM91REP.6:3220.HCM91.oracle.GO-FASTER-6>spool gfcpsstats11

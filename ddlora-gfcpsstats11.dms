@@ -1,0 +1,34 @@
+--  ******************************************************************
+--  ddlora-gfcpsstats11.dms (c) Go-Faster Consultancy 2012
+--  ReLoads the PeopleTools DDL tables for Analyze statements for Oracle
+--  calling gfcpsstats11 package
+--  ******************************************************************
+
+SET LOG DDLORA.LOG;
+
+DELETE FROM PSDDLMODEL
+WHERE PLATFORMID=2
+AND STATEMENT_TYPE IN (4,5)
+;
+
+INSERT INTO PSDDLMODEL (
+STATEMENT_TYPE,
+PLATFORMID,
+SIZING_SET,
+PARMCOUNT,
+MODEL_STATEMENT)
+VALUES(
+:1,
+:2,
+:3,
+:4,
+:5)
+\
+$DATATYPES NUMERIC,NUMERIC,NUMERIC,NUMERIC,CHARACTER
+4,2,0,0,$long
+gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME],p_verbose=>TRUE);
+//
+5,2,0,0,$long
+gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME],p_verbose=>TRUE);
+//
+/

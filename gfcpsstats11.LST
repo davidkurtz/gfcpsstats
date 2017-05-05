@@ -1,0 +1,907 @@
+SQL> 
+SQL> ROLLBACK --just to be safe
+  2  /
+
+Rollback complete.
+
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --This record should be created in Application Designer
+SQL> --a number of columns have been added for 11g so alter table commands included for upgrade
+SQL> --CASCASE - is not a part of the metadata becasue we always want to cascade
+SQL> --NOINVALIDATE - is not a part of metadata because we always want to invalidate cursors
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --DROP TABLE sysadm.ps_gfc_stats_ovrd PURGE;
+SQL> --DROP TRIGGER gfc_stats_ovrd_create_table;
+SQL> CREATE TABLE sysadm.ps_gfc_stats_ovrd
+  2  (recname	       VARCHAR2(15)   NOT NULL --peoplesoft record name
+  3  ,gather_stats     VARCHAR2(1)    NOT NULL --(G)ather Stats / (R)efresh Stats / Do(N)t Gather Stats / (R)efresh stale Stats / (D)elete Stats
+  4  ,estimate_percent VARCHAR2(30)   NOT NULL --same as dbms_stats.estimate_percent parameter
+  5  ,block_sample     VARCHAR2(1)    NOT NULL --same as dbms_stats.block_sample parameter
+  6  ,method_opt       VARCHAR2(1000) NOT NULL --same as dbms_stats.method_opt parameter
+  7  ,degree	       VARCHAR2(30)   NOT NULL --same as dbms_stats.degree parameter
+  8  ,granularity      VARCHAR2(30)   NOT NULL --same as dbms_stats.granularity parameter
+  9  ,incremental      VARCHAR2(5)    NOT NULL --Y/N - same as dbms_stats table preference INCREMENTAL
+ 10  ,stale_percent    NUMBER	      NOT NULL --same as dbms_stats table preference STALE_PERCENT
+ 11  ) TABLESPACE PTTBL PCTFREE 10 PCTUSED 80
+ 12  /
+CREATE TABLE sysadm.ps_gfc_stats_ovrd
+                    *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> CREATE UNIQUE  iNDEX ps_gfc_stats_ovrd ON ps_gfc_stats_ovrd (recname)
+  2   TABLESPACE PSINDEX STORAGE (INITIAL 40000 NEXT 100000 MAXEXTENTS
+  3   UNLIMITED PCTINCREASE 0) PCTFREE 10 NOPARALLEL LOGGING
+  4  /
+CREATE UNIQUE  iNDEX ps_gfc_stats_ovrd ON ps_gfc_stats_ovrd (recname)
+                     *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --This function based index is required on PSRECDEFN to optimize the reverse lookup of the record
+SQL> --from the table name.  The index cannot be defined in Application Designer
+SQL> ------------------------------------------------------------------------------------------------
+SQL> CREATE INDEX pszpsrecdefn_fbi
+  2  ON psrecdefn (DECODE(sqltablename,' ','PS_'||recname,sqltablename))
+  3  TABLESPACE PSINDEX PCTFREE 0
+  4  /
+CREATE INDEX pszpsrecdefn_fbi
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> 
+SQL> CREATE OR REPLACE PACKAGE sysadm.gfcpsstats11 AS
+  2  ------------------------------------------------------------------------------------------------
+  3  --procedure called from DDL model for %UpdateStats
+  4  --24.3.2009 adjusted to call local dbms_stats AND refresh stats
+  5  ------------------------------------------------------------------------------------------------
+  6  PROCEDURE ps_stats
+  7  (p_ownname      IN VARCHAR2 /*owner of table*/
+  8  ,p_tabname      IN VARCHAR2 /*table name*/
+  9  ,p_verbose      IN BOOLEAN DEFAULT FALSE /*if true print SQL*/
+ 10  );
+ 11  ------------------------------------------------------------------------------------------------
+ 12  --procedure to set table preferences on named tables
+ 13  --added 26.7.2012
+ 14  ------------------------------------------------------------------------------------------------
+ 15  PROCEDURE set_table_prefs
+ 16  (p_tabname      IN VARCHAR2 /*table name*/
+ 17  ,p_recname      IN VARCHAR2 DEFAULT NULL /*record of table if known*/
+ 18  );
+ 19  ------------------------------------------------------------------------------------------------
+ 20  --procedure to set table preferences on tables relating to named record
+ 21  --added 26.7.2012
+ 22  ------------------------------------------------------------------------------------------------
+ 23  PROCEDURE set_record_prefs
+ 24  (p_recname      IN VARCHAR2 /*record name*/
+ 25  );
+ 26  ------------------------------------------------------------------------------------------------
+ 27  --procedure to update metadata from actual table preferences
+ 28  --added 21.9.2012
+ 29  ------------------------------------------------------------------------------------------------
+ 30  PROCEDURE generate_metadata;
+ 31  ------------------------------------------------------------------------------------------------
+ 32  END gfcpsstats11;
+ 33  /
+
+Package created.
+
+SQL> show errors
+No errors.
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE PACKAGE BODY sysadm.gfcpsstats11 AS
+  2  ------------------------------------------------------------------------------------------------
+  3   g_lf VARCHAR2(1) := CHR(10); --line feed character
+  4   table_stats_locked EXCEPTION;
+  5   PRAGMA EXCEPTION_INIT(table_stats_locked,-20005);
+  6  ------------------------------------------------------------------------------------------------
+  7  --emit timestamped message during process
+  8  ------------------------------------------------------------------------------------------------
+  9  PROCEDURE msg
+ 10  (p_msg VARCHAR2
+ 11  ,p_log BOOLEAN DEFAULT FALSE
+ 12  ) IS
+ 13  BEGIN
+ 14   IF p_log THEN
+ 15  	psftapi.message_log(p_message=>p_msg,p_verbose=>TRUE);
+ 16   ELSE
+ 17  	dbms_output.put_line(TO_CHAR(SYSDATE,'hh24:mi:ss dd.mm.yyyy')||':'||p_msg);
+ 18   END IF;
+ 19  END msg;
+ 20  
+ 21  ------------------------------------------------------------------------------------------------
+ 22  --Function to convert boolean to string
+ 23  ------------------------------------------------------------------------------------------------
+ 24  FUNCTION display_bool
+ 25  (p_bool BOOLEAN
+ 26  ) RETURN VARCHAR2 IS
+ 27  BEGIN
+ 28   IF p_bool THEN
+ 29    RETURN 'TRUE';
+ 30   ELSE
+ 31    RETURN 'FALSE';
+ 32   END IF;
+ 33  END display_bool;
+ 34  
+ 35  ------------------------------------------------------------------------------------------------
+ 36  --gfcpsstats11 for dbms_stats package procedure with own logic
+ 37  --25.7.2012 removed p_method_opt
+ 38  ------------------------------------------------------------------------------------------------
+ 39  PROCEDURE gather_table_stats
+ 40  (p_ownname       IN VARCHAR2
+ 41  ,p_tabname       IN VARCHAR2
+ 42  ,p_partname      IN VARCHAR2 DEFAULT NULL
+ 43  ,p_block_sample  IN BOOLEAN  DEFAULT FALSE
+ 44  ,p_degree	      IN NUMBER   DEFAULT NULL
+ 45  ,p_granularity   IN VARCHAR2 DEFAULT NULL
+ 46  ,p_cascade       IN BOOLEAN  DEFAULT NULL
+ 47  ,p_stattab       IN VARCHAR2 DEFAULT NULL
+ 48  ,p_statid	      IN VARCHAR2 DEFAULT NULL
+ 49  ,p_statown       IN VARCHAR2 DEFAULT NULL
+ 50  ,p_no_invalidate IN BOOLEAN  DEFAULT NULL
+ 51  ,p_force	      IN BOOLEAN  DEFAULT NULL
+ 52  ,p_verbose       IN BOOLEAN  DEFAULT FALSE /*if true print SQL*/
+ 53  ) IS
+ 54   l_sql VARCHAR2(4000 CHAR);
+ 55  BEGIN
+ 56   l_sql := 'sys.dbms_stats.gather_table_stats'
+ 57  	       ||g_lf||'(ownname => :p_ownname'
+ 58  	       ||g_lf||',tabname => :p_tabname';
+ 59   IF p_partname IS NOT NULL THEN
+ 60    l_sql := l_sql||g_lf||',partname => '''||p_partname||'''';
+ 61   END IF;
+ 62  
+ 63   IF p_block_sample IS NOT NULL THEN
+ 64    l_sql := l_sql||g_lf||',block_sample => '||display_bool(p_block_sample);
+ 65   END IF;
+ 66  
+ 67   IF p_degree IS NOT NULL THEN
+ 68    l_sql := l_sql||g_lf||',degree => '||p_degree;
+ 69   END IF;
+ 70  
+ 71   IF p_granularity IS NOT NULL THEN
+ 72    l_sql := l_sql||g_lf||',granularity => '''||p_granularity||'''';
+ 73   END IF;
+ 74  
+ 75   IF p_cascade IS NOT NULL THEN
+ 76    l_sql := l_sql||g_lf||',cascade => '||display_bool(p_cascade);
+ 77   END IF;
+ 78  
+ 79   IF p_stattab IS NOT NULL THEN
+ 80    l_sql := l_sql||g_lf||',stattab => '''||p_stattab||'''';
+ 81   END IF;
+ 82   IF p_statid IS NOT NULL THEN
+ 83    l_sql := l_sql||g_lf||',statid => '''||p_statid||'''';
+ 84   END IF;
+ 85   IF p_statown IS NOT NULL THEN
+ 86    l_sql := l_sql||g_lf||',statown => '''||p_statown||'''';
+ 87   END IF;
+ 88  
+ 89   IF p_no_invalidate IS NOT NULL THEN
+ 90    l_sql := l_sql||g_lf||',no_invalidate => '||display_bool(p_no_invalidate);
+ 91   END IF;
+ 92  
+ 93   IF p_force IS NOT NULL THEN
+ 94    l_sql := l_sql||g_lf||',force => '||display_bool(p_force);
+ 95   END IF;
+ 96  
+ 97   l_sql := l_sql||');';
+ 98   l_sql := 'BEGIN '||l_sql||' END;';
+ 99  
+100  --IF p_verbose THEN
+101  -- msg('Table:'||p_ownname||'.'||p_tabname);
+102  --END IF;
+103   msg(l_sql,p_verbose);
+104  
+105   EXECUTE IMMEDIATE l_sql USING IN p_ownname, p_tabname;
+106  END gather_table_stats;
+107  
+108  ------------------------------------------------------------------------------------------------
+109  --Procedure to refresh stale stats on table, partition AND subpartition
+110  --24.3.2009 added refresh procedure for partitioned objects, gather_table_stats proc for wrapping
+111  -- 2.4.2009 added flush table monitoring stats to refresh stats pacakge
+112  --28.9.2012 made private - no longer need to call from outside pacakge
+113  ------------------------------------------------------------------------------------------------
+114  PROCEDURE refresh_stats
+115  (p_ownname 	    IN VARCHAR2
+116  ,p_tabname 	    IN VARCHAR2
+117  ,p_block_sample	    IN BOOLEAN DEFAULT FALSE /*if true block sample stats*/
+118  ,p_force		    IN BOOLEAN DEFAULT FALSE
+119  ,p_verbose 	    IN BOOLEAN DEFAULT FALSE /*if true print SQL*/
+120  ) IS
+121   l_force VARCHAR(1 CHAR);
+122  BEGIN
+123   IF p_verbose THEN
+124    msg('Checking '||p_ownname||'.'||p_tabname||' for stale statistics',p_verbose);
+125   END IF;
+126  
+127   dbms_stats.flush_database_monitoring_info;
+128  
+129   IF p_force THEN --need this is to be a varchar for SQL
+130    l_force := 'Y';
+131   ELSE
+132    l_force := 'N';
+133   END IF;
+134  
+135   FOR i IN (
+136    SELECT p.table_owner, p.table_name, p.partition_name, p.subpartition_name
+137    FROM   all_tab_subpartitions p
+138  	       LEFT OUTER JOIN all_tab_statistics s
+139  	       ON  s.owner = p.table_owner
+140  	       AND s.table_name = p.table_name
+141  	       AND s.partition_name = p.partition_name
+142  	       AND s.subpartition_name = p.subpartition_name
+143    WHERE  p.table_owner = p_ownname
+144    AND    p.table_name = p_tabname
+145    AND    (  s.stattype_locked IS NULL
+146  	      OR l_force = 'Y')
+147    AND    (  p.num_rows IS NULL
+148  	      OR s.stale_stats = 'YES')
+149   ) LOOP
+150    gfcpsstats11.gather_table_stats
+151    (p_ownname      => i.table_owner
+152    ,p_tabname      => i.table_name
+153    ,p_partname     => i.subpartition_name
+154    ,p_block_sample => p_block_sample
+155    ,p_cascade      => TRUE
+156    ,p_granularity  => 'SUBPARTITION'
+157    ,p_force        => p_force
+158    ,p_verbose      => p_verbose
+159    );
+160   END LOOP;
+161  
+162   FOR i IN (
+163    SELECT p.table_owner, p.table_name, p.partition_name
+164    FROM   all_tab_partitions p
+165  	      LEFT OUTER JOIN all_tab_statistics s
+166  	      ON  s.owner = p.table_owner
+167  	      AND s.table_name = p.table_name
+168  	      AND s.partition_name = p.partition_name
+169  	      AND s.subpartition_name IS NULL
+170    WHERE  p.table_owner = p_ownname
+171    AND    p.table_name = p_tabname
+172    AND    (  s.stattype_locked IS NULL
+173  	      OR l_force = 'Y')
+174    AND    (  s.global_stats = 'YES'
+175  	      OR s.global_stats IS NULL)
+176    AND    (  p.num_rows IS NULL
+177  	      OR s.stale_stats = 'YES')
+178   ) LOOP
+179    gfcpsstats11.gather_table_stats
+180    (p_ownname      => i.table_owner
+181    ,p_tabname      => i.table_name
+182    ,p_partname     => i.partition_name
+183    ,p_block_sample => p_block_sample
+184    ,p_cascade      => TRUE
+185    ,p_granularity  => 'PARTITION'
+186    ,p_force        => p_force
+187    ,p_verbose      => p_verbose
+188    );
+189   END LOOP;
+190  
+191   FOR i IN (
+192    SELECT p.owner, p.table_name
+193    FROM   all_tables p
+194  	      LEFT OUTER JOIN all_tab_statistics s
+195  	      ON  s.owner = p.owner
+196  	      AND s.table_name = p.table_name
+197  	      AND s.partition_name IS NULL
+198  	      AND s.subpartition_name IS NULL
+199    WHERE  p.owner = p_ownname
+200    AND    p.table_name = p_tabname
+201    AND    (  s.stattype_locked IS NULL
+202  	      OR l_force = 'Y')
+203    AND    (  s.global_stats = 'YES'
+204  	      OR s.global_stats IS NULL)
+205    AND    (  p.num_rows IS NULL
+206  	      OR s.stale_stats = 'YES')
+207   ) LOOP
+208    gfcpsstats11.gather_table_stats
+209    (p_ownname      => i.owner
+210    ,p_tabname      => i.table_name
+211    ,p_block_sample => p_block_sample
+212    ,p_cascade      => TRUE
+213    ,p_granularity  => 'GLOBAL'
+214    ,p_force        => p_force
+215    ,p_verbose      => p_verbose
+216    );
+217   END LOOP;
+218  
+219  --IF p_verbose THEN
+220  -- msg('Table:'||p_ownname||'.'||p_tabname||' finished');
+221  --END IF;
+222  
+223  END refresh_stats;
+224  
+225  ------------------------------------------------------------------------------------------------
+226  --convert oracle table name to PeopleSoft record name in a way that avoids doing a reverse
+227  --lookup on psrecdefn where possible.
+228  ------------------------------------------------------------------------------------------------
+229  PROCEDURE table_to_recname
+230  (p_tabname 	IN     VARCHAR2
+231  ,p_recname 	IN OUT VARCHAR2
+232  ,p_rectype 	IN OUT INTEGER
+233  ,p_temptblinstance IN OUT INTEGER
+234  ,p_msg		IN OUT VARCHAR2
+235  ) IS
+236   l_tablen	INTEGER;
+237  BEGIN
+238   l_tablen := LENGTH(p_tabname);
+239  
+240   BEGIN --what is the PeopleSoft record name and type
+241    SELECT r.rectype, r.recname
+242    INTO   p_rectype, p_recname
+243    FROM   psrecdefn r
+244    WHERE  r.sqltablename IN(' ','PS_'||r.recname)
+245    AND    r.recname = SUBSTR(p_tabname,4)
+246    AND    SUBSTR(p_tabname,1,3) = 'PS_'
+247    AND    r.rectype IN(0,7);
+248   EXCEPTION
+249    WHEN no_data_found THEN NULL;
+250   END;
+251  --msg('@1='||p_recname);
+252  
+253   IF p_recname IS NULL THEN --then it might be a temporary record, first try non-shared instances 1-9
+254    BEGIN --what is the PeopleSoft record name and type
+255  	SELECT r.rectype, r.recname, SUBSTR(p_tabname,-1)
+256  	INTO   p_rectype, p_recname, p_temptblinstance
+257  	FROM   psrecdefn r
+258  	WHERE  r.sqltablename IN(' ','PS_'||r.recname)
+259  	AND    r.recname = SUBSTR(p_tabname,4,l_tablen-4)
+260  	AND    SUBSTR(p_tabname,1,3) = 'PS_'
+261  	AND    r.rectype = 7;
+262  	p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
+263    EXCEPTION
+264  	WHEN no_data_found THEN NULL;
+265    END;
+266  --msg('@2='||p_recname);
+267   END IF;
+268  
+269   IF p_recname IS NULL THEN --then it might be a temporary record, first try non-shared instances 1-9
+270    BEGIN --what is the PeopleSoft record name and type
+271  	SELECT r.rectype, r.recname, SUBSTR(p_tabname,-2)
+272  	INTO   p_rectype, p_recname, p_temptblinstance
+273  	FROM   psrecdefn r
+274  	WHERE  r.sqltablename IN(' ','PS_'||r.recname)
+275  	AND    r.recname = SUBSTR(p_tabname,4,l_tablen-5)
+276  	AND    SUBSTR(p_tabname,1,3) = 'PS_'
+277  	AND    r.rectype = 7;
+278  	p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
+279    EXCEPTION
+280  	WHEN no_data_found THEN NULL;
+281    END;
+282  --msg('@3='||p_recname);
+283   END IF;
+284  
+285   --if we still have not got a record then need to do proper reverse lookup with SQL table name
+286   IF p_recname IS NULL THEN --then sqltablename might be specified
+287    BEGIN --what is the PeopleSoft record name and type
+288  	SELECT r.rectype, r.recname
+289  	INTO   p_rectype, p_recname
+290  	FROM   psrecdefn r
+291  	WHERE  DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename) = p_tabname
+292  	AND    r.rectype IN(0,7);
+293    EXCEPTION
+294  	WHEN no_data_found THEN NULL;
+295    END;
+296  --msg('@4='||p_recname);
+297   END IF;
+298  
+299   IF p_recname IS NULL THEN --then it might be a temporary record, first try non-shared instances 1-9
+300    BEGIN --what is the PeopleSoft record name and type
+301  	SELECT r.rectype, r.recname, SUBSTR(p_tabname,-1)
+302  	INTO   p_rectype, p_recname, p_temptblinstance
+303  	FROM   psrecdefn r
+304  	WHERE  DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename) = SUBSTR(p_tabname,1,l_tablen-1)
+305  	AND    r.rectype = 7;
+306  
+307  	p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
+308    EXCEPTION
+309  	WHEN no_data_found THEN NULL;
+310    END;
+311  --msg('@5='||p_recname);
+312   END IF;
+313  
+314   IF p_recname IS NULL THEN --then it might be a temporary record, try non-shared instances 10-99
+315    BEGIN --what is the PeopleSoft record name and type
+316  	SELECT r.rectype, r.recname, SUBSTR(p_tabname,-2)
+317  	INTO   p_rectype, p_recname, p_temptblinstance
+318  	FROM   psrecdefn r
+319  	WHERE  DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename) = SUBSTR(p_tabname,1,l_tablen-2)
+320  	AND    r.rectype = 7;
+321  
+322  	p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
+323    EXCEPTION
+324  	WHEN no_data_found THEN NULL;
+325    END;
+326  --msg('@6='||p_recname);
+327   END IF;
+328  
+329  END table_to_recname;
+330  
+331  ------------------------------------------------------------------------------------------------
+332  --public procedure to set table preferences on named tables called from DDL trigger
+333  ------------------------------------------------------------------------------------------------
+334  PROCEDURE set_table_prefs
+335  (p_tabname VARCHAR2
+336  ,p_recname VARCHAR2 DEFAULT NULL
+337  ) IS
+338   l_recname 	VARCHAR2(30);
+339   l_rectype 	INTEGER;
+340   l_temptblinstance VARCHAR2(2 CHAR) := '';
+341   l_msg		VARCHAR2(200 CHAR);
+342  BEGIN
+343   IF p_recname IS NULL THEN
+344    table_to_recname(p_tabname, l_recname, l_rectype, l_temptblinstance, l_msg);
+345   ELSE
+346    l_recname := p_recname;
+347   END IF;
+348  
+349  --msg('set_table_prefs(tabname=>'||p_tabname||',recname=>'||l_recname||')');
+350  
+351   FOR i IN(
+352    SELECT o.recname
+353    ,      NULLIF(o.estimate_percent,' ') estimate_percent
+354    ,      NULLIF(o.method_opt,' ') method_opt
+355    ,      NULLIF(o.degree,' ') degree
+356    ,      NULLIF(o.granularity,' ') granularity
+357    ,      NULLIF(o.incremental,' ') incremental
+358    ,      NULLIF(o.stale_percent,0) stale_percent
+359    FROM   user_tables t, psrecdefn r
+360  	LEFT OUTER JOIN ps_gfc_stats_ovrd o
+361  	ON   o.recname = r.recname
+362    WHERE  r.recname = l_recname
+363    AND    t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%'
+364    AND    t.table_name = p_tabname
+365   ) LOOP
+366    msg('set_table_prefs(recname='||l_recname||',tabname='||p_tabname
+367  	     ||',estimate_percent='||i.estimate_percent
+368  	     ||',method_opt='||i.method_opt
+369  	     ||',degree='||i.degree
+370  	     ||',granularity='||i.granularity
+371  	     ||',incremental='||i.incremental
+372  	     ||',stale_percent='||i.stale_percent||')');
+373  
+374    --cascade is not in the metadata so we always set it to true
+375    IF i.recname IS NULL THEN
+376  	 sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'CASCADE');
+377    ELSE
+378  	 sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'CASCADE', pvalue=>'TRUE');
+379    END IF;
+380  
+381    IF i.estimate_percent IS NULL THEN
+382  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'ESTIMATE_PERCENT');
+383    ELSE
+384  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'ESTIMATE_PERCENT', pvalue=>i.estimate_percent);
+385    END IF;
+386  
+387    IF i.method_opt IS NULL THEN
+388  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'METHOD_OPT');
+389    ELSE
+390  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'METHOD_OPT', pvalue=>i.method_opt);
+391    END IF;
+392  
+393    IF i.degree IS NULL THEN
+394  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'DEGREE');
+395    ELSE
+396  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'DEGREE', pvalue=>i.degree);
+397    END IF;
+398  
+399    IF i.granularity IS NULL THEN
+400  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'GRANULARITY');
+401    ELSE
+402  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'GRANULARITY', pvalue=>i.granularity);
+403    END IF;
+404  
+405    IF i.incremental IS NULL THEN
+406  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'INCREMENTAL');
+407    ELSE
+408  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'INCREMENTAL', pvalue=>i.incremental);
+409    END IF;
+410  
+411    IF i.stale_percent IS NULL THEN
+412  	sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'STALE_PERCENT');
+413    ELSE
+414  	sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'STALE_PERCENT', pvalue=>i.stale_percent);
+415    END IF;
+416  
+417   END LOOP;
+418  END set_table_prefs;
+419  
+420  ------------------------------------------------------------------------------------------------
+421  --private procedure to set a single preference on a table, or remove it if parameter is null
+422  ------------------------------------------------------------------------------------------------
+423  PROCEDURE set_table_pref
+424  (p_tabname VARCHAR2
+425  ,p_pname	VARCHAR2
+426  ,p_value	VARCHAR2 DEFAULT NULL
+427  ) IS
+428  BEGIN
+429  --msg('set_table_pref(tabname='||p_tabname||',pname='||p_pname||',value='||p_value||')');
+430   IF p_value IS NULL THEN
+431    sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname);
+432   ELSE
+433    sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname, pvalue=>p_value);
+434   END IF;
+435  END set_table_pref;
+436  ------------------------------------------------------------------------------------------------
+437  --public procedure to set table preferences on tables relating to named record
+438  --note that this time the preferences are passed into the procedure not retrieved from
+439  --the metadata table because this will be called from the DML trigger on the metadata table
+440  ------------------------------------------------------------------------------------------------
+441  PROCEDURE set_record_prefs
+442  (p_recname IN VARCHAR2
+443  ) IS
+444  BEGIN
+445   msg('set_record_prefs(recname=>'||p_recname||')');
+446   FOR i IN(
+447    SELECT r.recname
+448    ,      t.table_name
+449    ,      r.rectype
+450    FROM   user_tables t, psrecdefn r
+451    WHERE  r.recname LIKE p_recname
+452    AND    r.rectype IN(0,7)
+453    AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
+454   ) LOOP
+455    set_table_prefs(i.table_name);
+456    IF i.rectype = 7 THEN
+457  	FOR j IN (
+458  	 SELECT t.table_name
+459  	 FROM	pstemptblcntvw c
+460  	 ,	user_tables t
+461  	 ,	psoptions o
+462  	 ,	(SELECT rownum n FROM DUAL CONNECT BY LEVEL <= 99) n
+463  	 WHERE	c.recname = i.recname
+464  	 AND	n.n <= c.temptblinstances+o.temptblinstances
+465  	 AND	t.table_name = i.table_name||n.n
+466  	) LOOP
+467  	 set_table_prefs(j.table_name);
+468  	END LOOP;
+469    END IF;
+470   END LOOP;
+471  END set_record_prefs;
+472  ------------------------------------------------------------------------------------------------
+473  ------------------------------------------------------------------------------------------------
+474  --public procedure called from DDL model for %UpdateStats
+475  --12.2.2009 force stats collection on regular tables, skip GTTs
+476  ------------------------------------------------------------------------------------------------
+477  PROCEDURE ps_stats
+478  (p_ownname      IN VARCHAR2
+479  ,p_tabname      IN VARCHAR2
+480  ,p_verbose      IN BOOLEAN DEFAULT FALSE /*if true print SQL*/
+481  ) IS
+482   l_temporary	 VARCHAR2(1 CHAR);
+483   l_partitioned	 VARCHAR2(1 CHAR);
+484   l_recname 	 VARCHAR2(15 CHAR);
+485   l_rectype 	 INTEGER;
+486   l_temptblinstance  VARCHAR2(2 CHAR) := '';
+487   l_msg		 VARCHAR2(200 CHAR);
+488   l_tablen		 INTEGER;
+489   l_gather_stats	 VARCHAR2(1);
+490   l_force		 BOOLEAN := FALSE;
+491  BEGIN
+492   msg('ps_stats(ownname=>'||p_ownname||',tabname=>'||p_tabname||')');
+493   l_tablen := LENGTH(p_tabname);
+494   l_msg := p_ownname||'.'||p_tabname||': ';
+495  
+496   BEGIN --is this a GTT or a partitioned table? y/n
+497    SELECT temporary, SUBSTR(partitioned,1,1)
+498    INTO   l_temporary, l_partitioned
+499    FROM   all_tables
+500    WHERE  owner = p_ownname
+501    AND    table_name = p_tabname;
+502  
+503    IF l_temporary = 'Y' THEN
+504  	l_msg := l_msg||'GTT. ';
+505    END IF;
+506  
+507    IF l_partitioned = 'Y' THEN
+508  	l_msg := l_msg||'Partitioned Table. ';
+509    END IF;
+510  
+511   EXCEPTION WHEN no_data_found THEN
+512    RAISE_APPLICATION_ERROR(-20001,'Table '||p_ownname||'.'||p_tabname||' does not exist');
+513   END;
+514  
+515   table_to_recname(p_tabname, l_recname, l_rectype, l_temptblinstance, l_msg);
+516  
+517   --to introduce 'per record' behaviour per program use list of programs here
+518   IF 1=1 /*psftapi.get_prcsname() IN(<program name list>)*/ THEN
+519    BEGIN --get override meta data
+520  	SELECT o.gather_stats
+521  	INTO   l_gather_stats
+522  	FROM   ps_gfc_stats_ovrd o
+523  	WHERE  recname = l_recname;
+524  
+525  	l_msg := l_msg||'Meta Data: '||l_gather_stats;
+526  	l_msg := l_msg||'. ';
+527  	l_force := TRUE;
+528  
+529    EXCEPTION
+530  	WHEN no_data_found THEN
+531  	 l_force := TRUE; --17.11.2011 Default is to collect stats if no meta data even if table locked
+532  	 l_msg := l_msg||'No Meta Data Found. ';
+533  
+534  	 IF l_rectype = 0 THEN
+535  	  l_msg := l_msg||'SQL Table. ';
+536  	  l_gather_stats := 'G'; --3.4.2014 changed default from refresh stale on normal tables to gather
+537  	 ELSIF l_rectype = 7 THEN --1.10.2009 changed default from N (No Stats) to G (Gather Stats) on temp records
+538  	  l_msg := l_msg||'Temporary Table. ';
+539  	  l_gather_stats := 'G'; --default gather stats on temp records
+540  	 END IF;
+541    END;
+542   ELSE
+543    l_msg := l_msg||'Default ';
+544    l_gather_stats := 'G';
+545   END IF;
+546  --msg('Gather Stats='''||l_gather_stats||'''');
+547  --msg('Temporary	='''||l_temporary||'''');
+548  --msg('Temp Inst	='''||l_temptblinstance||'''');
+549  
+550   IF l_gather_stats = 'N' THEN -- do not collect stats if meta data says N
+551  
+552    l_msg := l_msg||'Statistics Not Collected. ';
+553    IF p_verbose THEN
+554  	msg(l_msg,TRUE);
+555    END IF;
+556  
+557   ELSIF l_gather_stats = 'D' THEN --delete stats
+558    l_msg := l_msg||'Statistics deleted. ';
+559    IF p_verbose THEN
+560  	msg(l_msg,TRUE);
+561    END IF;
+562  
+563    dbms_stats.delete_table_stats --delete statistics on table - will cascade to indexes, columns and partitions by default
+564    (ownname      => p_ownname
+565    ,tabname      => p_tabname
+566    ,force	     => l_force
+567    );
+568  
+569   ELSIF l_gather_stats != 'N' AND l_temporary = 'Y' AND l_temptblinstance IS NULL THEN -- do not collect stats on shared GTTs
+570  
+571    l_msg := l_msg||'Statistics not collected on shared GTT. ';
+572    IF p_verbose THEN
+573  	msg(l_msg,TRUE);
+574    END IF;
+575    l_gather_stats := 'N';
+576  
+577   ELSIF l_partitioned = 'Y' OR l_gather_stats = 'R' THEN --refresh stale if partitioned
+578  
+579    l_msg := l_msg||'Refresh Stale Statistics. ';
+580    IF p_verbose THEN
+581  	msg(l_msg,TRUE);
+582    END IF;
+583  
+584    gfcpsstats11.refresh_stats
+585    (p_ownname      => p_ownname
+586    ,p_tabname      => p_tabname
+587    ,p_force        => l_force
+588    ,p_verbose      => p_verbose
+589    ); --refresh stale stats only
+590  
+591   ELSE
+592  
+593    l_msg := l_msg||'Gather Statistics. ';
+594    IF p_verbose THEN
+595  	msg(l_msg,TRUE);
+596    END IF;
+597  
+598    --NB delete stats will cascade to index, columns and parts by default
+599    gfcpsstats11.gather_table_stats
+600    (p_ownname      => p_ownname
+601    ,p_tabname      => p_tabname
+602    ,p_force        => l_force
+603    ,p_verbose      => p_verbose
+604    );
+605  
+606    IF p_verbose THEN
+607  	msg('Table('||p_ownname||'.'||p_tabname||' finished'||')');
+608    END IF;
+609   END IF;
+610  EXCEPTION
+611   WHEN table_stats_locked THEN NULL;
+612  END ps_stats;
+613  
+614  ------------------------------------------------------------------------------------------------
+615  --procedure to create metadata from actual table preferences
+616  ------------------------------------------------------------------------------------------------
+617  --cascade
+618  PROCEDURE generate_metadata IS
+619   l_recname 	 VARCHAR2(15);
+620   l_rectype 	 INTEGER;
+621   l_temptblinstance  VARCHAR2(2 CHAR) := '';
+622   l_msg		 VARCHAR2(200 CHAR);
+623  BEGIN
+624   FOR i IN (
+625    SELECT x.table_name, s.estimate_percent, m.method_opt, d.degree, p.stale_percent, g.granularity, i.incremental
+626  	FROM (SELECT DISTINCT table_name FROM user_tab_stat_prefs) x
+627  	 LEFT OUTER JOIN (
+628  	  SELECT table_name
+629  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) estimate_percent
+630  	  FROM	 user_tab_stat_prefs
+631  	  WHERE  preference_name = 'ESTIMATE_PERCENT'
+632  	  ) s
+633  	  ON s.table_name = x.table_name
+634  	 LEFT OUTER JOIN (
+635  	  SELECT table_name
+636  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) method_opt
+637  	  FROM	 user_tab_stat_prefs
+638  	  WHERE  preference_name = 'METHOD_OPT'
+639  	  ) m
+640  	  ON m.table_name = s.table_name
+641  	 LEFT OUTER JOIN (
+642  	  SELECT table_name
+643  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) degree
+644  	  FROM	 user_tab_stat_prefs
+645  	  WHERE  preference_name = 'DEGREE'
+646  	  ) d
+647  	  ON m.table_name = s.table_name
+648  	 LEFT OUTER JOIN (
+649  	  SELECT table_name
+650  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) stale_percent
+651  	  FROM	 user_tab_stat_prefs
+652  	  WHERE  preference_name = 'STALE_PERCENT'
+653  	  ) p
+654  	  ON p.table_name = s.table_name
+655  	 LEFT OUTER JOIN (
+656  	  SELECT table_name
+657  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) granularity
+658  	  FROM	 user_tab_stat_prefs
+659  	  WHERE  preference_name = 'GRANULARITY'
+660  	  ) g
+661  	  ON g.table_name = s.table_name
+662  	 LEFT OUTER JOIN (
+663  	  SELECT table_name
+664  	  ,	 NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) incremental
+665  	  FROM	 user_tab_stat_prefs
+666  	  WHERE  preference_name = 'INCREMENTAL'
+667  	  ) i
+668  	  ON i.table_name = s.table_name
+669   ) LOOP
+670    table_to_recname
+671    (p_tabname	  =>i.table_name
+672    ,p_recname	  =>l_recname
+673    ,p_rectype	  =>l_rectype
+674    ,p_temptblinstance =>l_temptblinstance
+675    ,p_msg		  =>l_msg
+676    );
+677  
+678    BEGIN
+679  	INSERT INTO ps_gfc_stats_ovrd
+680  	(recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent)
+681  	VALUES
+682  	(l_recname, 'G', ' '
+683  	, NVL(i.estimate_percent,' ')
+684  	, NVL(i.method_opt,' ')
+685  	, NVL(i.degree,' ')
+686  	, NVL(i.granularity,' ')
+687  	, NVL(i.incremental,' ')
+688  	, NVL(i.stale_percent,0)
+689  	);
+690    EXCEPTION WHEN dup_val_on_index THEN
+691  	UPDATE ps_gfc_stats_ovrd
+692  	SET    estimate_percent = NVL(i.estimate_percent,' ')
+693  	,      method_opt = NVL(i.method_opt,' ')
+694  	,      degree = NVL(i.degree,' ')
+695  	,      granularity = NVL(i.granularity,' ')
+696  	,      incremental = NVL(i.incremental,' ')
+697  	,      stale_percent = NVL(i.stale_percent,0)
+698  	WHERE  recname = l_recname;
+699    END;
+700  
+701   END LOOP;
+702  END generate_metadata;
+703  ------------------------------------------------------------------------------------------------
+704  END gfcpsstats11;
+705  /
+
+Package body created.
+
+SQL> show errors
+No errors.
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --trigger to set preferences on table when metadata is changed
+SQL> --using dbms_job because it doesn't commit so jobs only submitted when trigger commits and
+SQL> --packages can read the table safely
+SQL> ------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE TRIGGER gfc_stats_ovrd_metadata
+  2  AFTER INSERT OR UPDATE OF RECNAME, ESTIMATE_PERCENT, METHOD_OPT, DEGREE, GRANULARITY, INCREMENTAL, STALE_PERCENT
+  3  		  OR DELETE ON ps_gfc_stats_ovrd
+  4  FOR EACH ROW
+  5  DECLARE
+  6    l_cmd VARCHAR2(100) := '';
+  7    l_jobno NUMBER;
+  8  BEGIN
+  9    IF DELETING THEN
+ 10  	 dbms_job.submit(l_jobno,'gfcpsstats11.set_record_prefs('''||:old.recname||''');');
+ 11    ELSE
+ 12  	 IF :new.recname != :old.recname THEN
+ 13  	   dbms_job.submit(l_jobno,'gfcpsstats11.set_record_prefs('''||:old.recname||''');');
+ 14  	 END IF;
+ 15  	 dbms_job.submit(l_jobno,'gfcpsstats11.set_record_prefs('''||:new.recname||''');');
+ 16    END IF;
+ 17  END gfc_stats_ovrd_metadata;
+ 18  /
+
+Trigger created.
+
+SQL> show errors
+No errors.
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --trigger to set preferences on table as it is created
+SQL> ------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE TRIGGER gfc_stats_ovrd_create_table
+  2  AFTER CREATE ON sysadm.schema
+  3  DECLARE
+  4    l_jobno NUMBER;
+  5  BEGIN
+  6    IF ora_dict_obj_type = 'TABLE' THEN
+  7  	 --submit one-time job to set table preferences as table will not have been created by time trigger runs
+  8  	 sys.dbms_scheduler.create_job
+  9  	 (job_name   => 'SET_PREFS_'||ora_dict_obj_name
+ 10  	 ,job_type   => 'PLSQL_BLOCK'
+ 11  	 ,job_action => 'BEGIN gfcpsstats11.set_table_prefs(p_tabname=>'''||ora_dict_obj_name||'''); END;'
+ 12  	 ,start_date => SYSTIMESTAMP --run job immediately
+ 13  	 ,enabled    => TRUE --job is enabled
+ 14  	 ,auto_drop  => TRUE --request will be dropped when complete
+ 15  	 ,comments   => 'Set table preferences on table '||ora_dict_obj_owner||'.'||ora_dict_obj_name
+ 16  	 );
+ 17    END IF;
+ 18  END;
+ 19  /
+
+Trigger created.
+
+SQL> show errors
+No errors.
+SQL> 
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --trigger change COBOL stored statements that call DBMS_STATS to call this pacakge
+SQL> ------------------------------------------------------------------------------------------------
+SQL> --25.04.2014 replace double semi-colon on end of stored statement with single semi-colon
+SQL> ------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE TRIGGER gfc_stat_ovrd_stored_stmt
+  2  BEFORE INSERT ON ps_sqlstmt_tbl
+  3  FOR EACH ROW
+  4  WHEN (new.stmt_text LIKE '%UPDATESTATS(%)')
+  5  DECLARE
+  6    l_jobno NUMBER;
+  7  BEGIN
+  8    :new.stmt_text := 'BEGIN gfcpsstats11.ps_stats(p_ownname=>user,p_tabname=>'''
+  9  			  ||SUBSTR(:new.stmt_text,14,LENGTH(:new.stmt_text)-14)||'''); END;';
+ 10  END;
+ 11  /
+
+Trigger created.
+
+SQL> 
+SQL> --25.04.2014 update statement corrects any stored statements incorrectly updated by previous version of trigger
+SQL> UPDATE  ps_sqlstmt_Tbl
+  2  SET     stmt_text = REPLACE(stmt_text,'END;;','END;')
+  3  WHERE   stmt_text like 'BEGIN%gfcpsstats11.ps_stats(%); END;;'
+  4  /
+
+0 rows updated.
+
+SQL> COMMIT
+  2  /
+
+Commit complete.
+
+SQL> 
+SQL> 
+SQL> show errors
+No errors.
+SQL> spool off

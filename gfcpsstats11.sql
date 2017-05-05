@@ -12,7 +12,8 @@ REM 25. 7.2012 cloned from wrapper848.sql and renamed as gfcpsstats11
 REM  3. 4.2014 changed default from refresh stale on normal tables to gather
 REM  6. 4.2014 added functionality to delete stats
 REM 25.04.2014 TRIGGER gfc_stat_ovrd_stored_stmt: replace double semi-colon on end of stored statement with single semi-colon
-
+REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppress exception when trying to create duplicate jobs
+REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
 clear screen
 set echo on serveroutput on lines 100 wrap off
 spool gfcpsstats11
@@ -30,7 +31,7 @@ ROLLBACK --just to be safe
 --DROP TRIGGER gfc_stats_ovrd_create_table;
 CREATE TABLE sysadm.ps_gfc_stats_ovrd 
 (recname          VARCHAR2(15)   NOT NULL --peoplesoft record name
-,gather_stats     VARCHAR2(1)    NOT NULL --(G)ather Stats / (R)efresh Stats / Do(N)t Gather Stats / (R)efresh stale Stats / (D)elete Stats
+,gather_stats     VARCHAR2(1)    NOT NULL --(G)ather Stats / (R)efresh Stats / Do(N)t Gather Stats / (R)efresh stale Stats
 ,estimate_percent VARCHAR2(30)   NOT NULL --same as dbms_stats.estimate_percent parameter
 ,block_sample     VARCHAR2(1)    NOT NULL --same as dbms_stats.block_sample parameter
 ,method_opt       VARCHAR2(1000) NOT NULL --same as dbms_stats.method_opt parameter
@@ -234,8 +235,8 @@ BEGIN
           AND s.table_name = p.table_name
           AND s.partition_name = p.partition_name
           AND s.subpartition_name = p.subpartition_name
-  WHERE  p.table_owner = p_ownname
-  AND    p.table_name = p_tabname
+  WHERE  p.table_owner = UPPER(p_ownname) /*30.3.2017 added upper()*/
+  AND    p.table_name = UPPER(p_tabname) /*30.3.2017 added upper()*/
   AND    (  s.stattype_locked IS NULL 
          OR l_force = 'Y')
   AND    (  p.num_rows IS NULL
@@ -261,8 +262,8 @@ BEGIN
          AND s.table_name = p.table_name
          AND s.partition_name = p.partition_name
          AND s.subpartition_name IS NULL
-  WHERE  p.table_owner = p_ownname
-  AND    p.table_name = p_tabname
+  WHERE  p.table_owner = UPPER(p_ownname) /*30.3.2017 added upper()*/
+  AND    p.table_name = UPPER(p_tabname) /*30.3.2017 added upper()*/
   AND    (  s.stattype_locked IS NULL 
          OR l_force = 'Y')
   AND    (  s.global_stats = 'YES'
@@ -290,8 +291,8 @@ BEGIN
          AND s.table_name = p.table_name
          AND s.partition_name IS NULL
          AND s.subpartition_name IS NULL
-  WHERE  p.owner = p_ownname
-  AND    p.table_name = p_tabname
+  WHERE  p.owner = upper(p_ownname) /*30.3.2017 added upper()*/
+  AND    p.table_name = upper(p_tabname) /*30.3.2017 added upper()*/
   AND    (  s.stattype_locked IS NULL 
          OR l_force = 'Y')
   AND    (  s.global_stats = 'YES'
@@ -591,8 +592,8 @@ BEGIN
   SELECT temporary, SUBSTR(partitioned,1,1)
   INTO   l_temporary, l_partitioned
   FROM   all_tables
-  WHERE  owner = p_ownname
-  AND    table_name = p_tabname;
+  WHERE  owner = UPPER(p_ownname) /*30.3.2017 added upper()*/
+  AND    table_name = UPPER(p_tabname); /*30.3.2017 added upper()*/
 
   IF l_temporary = 'Y' THEN
    l_msg := l_msg||'GTT. ';
@@ -693,6 +694,7 @@ BEGIN
   gfcpsstats11.gather_table_stats
   (p_ownname      => p_ownname
   ,p_tabname      => p_tabname
+  ,p_cascade      => TRUE
   ,p_force        => l_force
   ,p_verbose      => p_verbose
   ); 
@@ -831,18 +833,23 @@ CREATE OR REPLACE TRIGGER gfc_stats_ovrd_create_table
 AFTER CREATE ON sysadm.schema
 DECLARE
   l_jobno NUMBER;
+  e_object_already_exists EXCEPTION;
+  PRAGMA EXCEPTION_INIT(e_object_already_exists,-27477);
 BEGIN
   IF ora_dict_obj_type = 'TABLE' THEN
     --submit one-time job to set table preferences as table will not have been created by time trigger runs
-    sys.dbms_scheduler.create_job
-    (job_name   => 'SET_PREFS_'||ora_dict_obj_name
-    ,job_type   => 'PLSQL_BLOCK'
-    ,job_action => 'BEGIN gfcpsstats11.set_table_prefs(p_tabname=>'''||ora_dict_obj_name||'''); END;'
-    ,start_date => SYSTIMESTAMP --run job immediately
-    ,enabled    => TRUE --job is enabled
-    ,auto_drop  => TRUE --request will be dropped when complete
-    ,comments   => 'Set table preferences on table '||ora_dict_obj_owner||'.'||ora_dict_obj_name
-    );
+    BEGIN
+      sys.dbms_scheduler.create_job
+      (job_name   => 'SET_PREFS_'||ora_dict_obj_name
+      ,job_type   => 'PLSQL_BLOCK'
+      ,job_action => 'BEGIN gfcpsstats11.set_table_prefs(p_tabname=>'''||ora_dict_obj_name||'''); END;'
+      ,start_date => SYSTIMESTAMP --run job immediately
+      ,enabled    => TRUE --job is enabled
+      ,auto_drop  => TRUE --request will be dropped when complete
+      ,comments   => 'Set table preferences on table '||ora_dict_obj_owner||'.'||ora_dict_obj_name
+      );
+    EXCEPTION WHEN e_object_already_exists THEN NULL; --suppress duplicate object error that occurs if job already there
+    END;
   END IF;
 END;
 /

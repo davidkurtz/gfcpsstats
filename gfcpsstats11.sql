@@ -14,6 +14,7 @@ REM  6. 4.2014 added functionality to delete stats
 REM 25.04.2014 TRIGGER gfc_stat_ovrd_stored_stmt: replace double semi-colon on end of stored statement with single semi-colon
 REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppress exception when trying to create duplicate jobs
 REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
+REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
 clear screen
 set echo on serveroutput on lines 100 wrap off
 spool gfcpsstats11
@@ -337,8 +338,8 @@ BEGIN
   INTO   p_rectype, p_recname
   FROM   psrecdefn r
   WHERE  r.sqltablename IN(' ','PS_'||r.recname)
-  AND    r.recname = SUBSTR(p_tabname,4)
-  AND    SUBSTR(p_tabname,1,3) = 'PS_'
+  AND    ((r.recname = SUBSTR(p_tabname,4) AND SUBSTR(p_tabname,1,3) IN('PS_','PSY'))
+  OR      (r.recname = SUBSTR(p_tabname,5) AND SUBSTR(p_tabname,1,4) IN('GFC_')))
   AND    r.rectype IN(0,7);
  EXCEPTION 
   WHEN no_data_found THEN NULL;
@@ -351,8 +352,7 @@ BEGIN
    INTO   p_rectype, p_recname, p_temptblinstance
    FROM   psrecdefn r
    WHERE  r.sqltablename IN(' ','PS_'||r.recname)
-   AND    r.recname = SUBSTR(p_tabname,4,l_tablen-4)
-   AND    SUBSTR(p_tabname,1,3) = 'PS_'
+   AND    r.recname = SUBSTR(p_tabname,4,l_tablen-4) AND SUBSTR(p_tabname,1,3) IN('PS_','PSY')
    AND    r.rectype = 7;
    p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
   EXCEPTION 
@@ -367,8 +367,7 @@ BEGIN
    INTO   p_rectype, p_recname, p_temptblinstance
    FROM   psrecdefn r
    WHERE  r.sqltablename IN(' ','PS_'||r.recname)
-   AND    r.recname = SUBSTR(p_tabname,4,l_tablen-5)
-   AND    SUBSTR(p_tabname,1,3) = 'PS_'
+   AND    r.recname = SUBSTR(p_tabname,4,l_tablen-5) AND SUBSTR(p_tabname,1,3) IN('PS_','PSY')
    AND    r.rectype = 7;
    p_msg := p_msg||'Instance '||p_temptblinstance||'. ';
   EXCEPTION 
@@ -455,7 +454,9 @@ BEGIN
    LEFT OUTER JOIN ps_gfc_stats_ovrd o
    ON   o.recname = r.recname
   WHERE  r.recname = l_recname
-  AND    t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%'
+  AND    ((t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%')
+         OR (t.table_name LIKE DECODE(r.sqltablename,' ','PSY'||r.recname,r.sqltablename)||'%')
+         OR (t.table_name LIKE DECODE(r.sqltablename,' ','GFC_'||r.recname,r.sqltablename)||'%'))
   AND    t.table_name = p_tabname
  ) LOOP
   msg('set_table_prefs(recname='||l_recname||',tabname='||p_tabname
@@ -545,7 +546,9 @@ BEGIN
   FROM   user_tables t, psrecdefn r
   WHERE  r.recname LIKE p_recname
   AND    r.rectype IN(0,7)
-  AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
+  AND    (  t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
+         OR t.table_name = DECODE(r.sqltablename,' ','PSY'||r.recname,r.sqltablename)
+         OR t.table_name = DECODE(r.sqltablename,' ','GFC_'||r.recname,r.sqltablename))
  ) LOOP
   set_table_prefs(i.table_name);
   IF i.rectype = 7 THEN
@@ -840,7 +843,7 @@ BEGIN
     --submit one-time job to set table preferences as table will not have been created by time trigger runs
     BEGIN
       sys.dbms_scheduler.create_job
-      (job_name   => 'SET_PREFS_'||ora_dict_obj_name
+      (job_name   => SUBSTR('STAT_PREFS_'||ora_dict_obj_name,1,30)
       ,job_type   => 'PLSQL_BLOCK'
       ,job_action => 'BEGIN gfcpsstats11.set_table_prefs(p_tabname=>'''||ora_dict_obj_name||'''); END;'
       ,start_date => SYSTIMESTAMP --run job immediately

@@ -1,0 +1,3396 @@
+<?xml version='1.0'?>
+  <!--Warning : Don't edit this file -->
+  <instance class="PJM">
+    <rowset name="PjmDefn" size="2808" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.53.33.105240</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>70</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szProjectName>GFC_STATS_OVRD</szProjectName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <szProjectDescr></szProjectDescr>
+        <szSrcDBName>HR92U013</szSrcDBName>
+        <szSrcOprId>PS</szSrcOprId>
+        <szSessionId>0ae83477-8451-11e8-8438-816c47366898</szSessionId>
+        <szRunDtTm>2018-07-10-14.53.42.105329</szRunDtTm>
+        <szTgtServerName></szTgtServerName>
+        <szTgtDBName></szTgtDBName>
+        <szTgtOprId></szTgtOprId>
+        <fReportFilter>16232832</fReportFilter>
+        <eTargetOrientation>0</eTargetOrientation>
+        <eCompareType>1</eCompareType>
+        <fKeepTgt>31</fKeepTgt>
+        <nCommitLimit>50</nCommitLimit>
+        <szCompRelease></szCompRelease>
+        <szCompRelDttm></szCompRelDttm>
+        <bMaintenanceProject>0</bMaintenanceProject>
+        <bUseDbFieldNameAttrib>0</bUseDbFieldNameAttrib>
+        <szReleaseLabel></szReleaseLabel>
+        <szReleaseDttm></szReleaseDttm>
+        <nDescrLongLen>0</nDescrLongLen>
+        <hDescrLong>HANDLE</hDescrLong>
+        <nProjectCount>49</nProjectCount>
+        <lpPit> POINTER
+          <rowset name="PjmPit" size="41944" count="49">
+            <row>
+              <eObjectType>0</eObjectType>
+              <szObjectValue_0>GFC_STATS_OVRD</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>1</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>BLOCK_SAMPLE</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>DEGREE</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>ESTIMATE_PERCENT</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>3</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1>GATHER_STATS</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>GRANULARITY</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>INCREMENTAL</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>METHOD_OPT</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>3</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>ACE_RECNAME</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>ACE_RECNAME1</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>ADSREC</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>APPLICATIONMC_DEFN</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>ARCHIVE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>ARCHIVINGTABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>BUSINESSDOCRECORD</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>CORE_TABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>EDITTABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>EODC_CILVL_MAINREC</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>EOSD_PROMPT</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>FILELAYOUTMODEL</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>FROMDSREC</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>INPUT</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>MATVW_NAME</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>MODEL_RECORD</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>PROMPT_TABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RECNAME</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RECNAME1</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RECNAME_1</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RECORD_VIEW</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RECTOTRANS</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>REC_BASED_ON</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>RUNCNTRLREC</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>SD_DATA_STORE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>SEARCH_RECORD</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>SOURCERECORD</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>TABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>TABLENAME</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>TARGETRECORD</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>TXN_TBL</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>USERIDLBL</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>VALUETABLE</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>RECNAME</szObjectValue_0>
+              <szObjectValue_1>VAT_CNTXT</szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>102</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>2</eObjectType>
+              <szObjectValue_0>STALE_PERCENT</szObjectValue_0>
+              <szObjectValue_1></szObjectValue_1>
+              <szObjectValue_2></szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>0</eObjectID_1>
+              <eObjectID_2>0</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>1</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>4</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1>D</szObjectValue_1>
+              <szObjectValue_2>1900-01-01</szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>22</eObjectID_1>
+              <eObjectID_2>21</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>4</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1>G</szObjectValue_1>
+              <szObjectValue_2>1900-01-01</szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>22</eObjectID_1>
+              <eObjectID_2>21</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>4</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1>N</szObjectValue_1>
+              <szObjectValue_2>1900-01-01</szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>22</eObjectID_1>
+              <eObjectID_2>21</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+            <row>
+              <eObjectType>4</eObjectType>
+              <szObjectValue_0>GATHER_STATS</szObjectValue_0>
+              <szObjectValue_1>R</szObjectValue_1>
+              <szObjectValue_2>1900-01-01</szObjectValue_2>
+              <szObjectValue_3></szObjectValue_3>
+              <eObjectID_0>6</eObjectID_0>
+              <eObjectID_1>22</eObjectID_1>
+              <eObjectID_2>21</eObjectID_2>
+              <eObjectID_3>0</eObjectID_3>
+              <bExecute>0</bExecute>
+              <eSourceStatus>0</eSourceStatus>
+              <eTargetStatus>0</eTargetStatus>
+              <eUpgradeAction>0</eUpgradeAction>
+              <bTakeAction>1</bTakeAction>
+              <bCopyDone>0</bCopyDone>
+              <eRowStatus>3</eRowStatus>
+            </row>
+          </rowset>
+        </lpPit>
+        <nAdsBindingCount>0</nAdsBindingCount>
+        <pPrjAdsBinding>POINTER</pPrjAdsBinding>
+        <bCopyAllSec>1</bCopyAllSec>
+        <bCompAllSec>1</bCompAllSec>
+        <nSecCount>70</nSecCount>
+        <lpSec> POINTER
+          <rowset name="PjmSec" size="1400" count="70">
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>COMMON</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ARA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>BUL</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>CFR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>CRO</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>CZE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>DAN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>DUT</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ENG</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ESP</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>FIN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>FRA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>GER</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>GRK</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>HEB</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>HUN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ITA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>JPN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>KOR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>MAY</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>NOR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>POL</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>POR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ROM</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>RUS</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>SER</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>SLK</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>SLV</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>SVE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>THA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>TUR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>UKE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>VIE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ZHS</szSectionName>
+            </row>
+            <row>
+              <eProcessType>0</eProcessType>
+              <szSectionName>ZHT</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>COMMON</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ARA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>BUL</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>CFR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>CRO</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>CZE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>DAN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>DUT</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ENG</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ESP</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>FIN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>FRA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>GER</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>GRK</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>HEB</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>HUN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ITA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>JPN</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>KOR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>MAY</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>NOR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>POL</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>POR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ROM</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>RUS</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>SER</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>SLK</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>SLV</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>SVE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>THA</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>TUR</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>UKE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>VIE</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ZHS</szSectionName>
+            </row>
+            <row>
+              <eProcessType>2</eProcessType>
+              <szSectionName>ZHT</szSectionName>
+            </row>
+          </rowset>
+        </lpSec>
+        <nIncCount>0</nIncCount>
+        <lpInc>POINTER</lpInc>
+        <nDepCount>0</nDepCount>
+        <lpDep>POINTER</lpDep>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="RDM">
+    <rowset name="RecDefn" size="920" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.19.105625</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>47</lVersion>
+        <lSwapVersion>47</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szRecName>GFC_STATS_OVRD</szRecName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <fFlags>0</fFlags>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nFieldCount>9</nFieldCount>
+        <eRecType>0</eRecType>
+        <fRecUse>0</fRecUse>
+        <cOptTrigFlag>N</cOptTrigFlag>
+        <szAuditRecName></szAuditRecName>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szRelLangRecName></szRelLangRecName>
+        <szOptDelRecName></szOptDelRecName>
+        <szParentRecName></szParentRecName>
+        <szQrySecRecName></szQrySecRecName>
+        <szSqlTableName></szSqlTableName>
+        <nBuildSeqNo>1</nBuildSeqNo>
+        <szRecDescr>GFCPSSTATS11 Metadata Table</szRecDescr>
+        <hAltDefn>HANDLE</hAltDefn>
+        <nDescrLongLen>218</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="218" count="1">
+            <row>
+              <hDescrLong>dmk 10.7.2018 - metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <hRft> HANDLE
+          <rowset name="RecField" size="3744" count="9">
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>RECNAME</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>15</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-11.44.42.612658</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>35</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="1120" count="35">
+                  <row>
+                    <atmLabelID>ACE_RECNAME</atmLabelID>
+                    <atmLongName>Record Name</atmLongName>
+                    <atmShortName>Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>ACE_RECNAME1</atmLabelID>
+                    <atmLongName>Delete Table Name</atmLongName>
+                    <atmShortName>Table Name</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>ADSREC</atmLabelID>
+                    <atmLongName>Data Set Record</atmLongName>
+                    <atmShortName>Data Set Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>APPLICATIONMC_DEFN</atmLabelID>
+                    <atmLongName>Application MC_DEFN Record</atmLongName>
+                    <atmShortName>App MC_</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>ARCHIVE</atmLabelID>
+                    <atmLongName>Archiving Record</atmLongName>
+                    <atmShortName>Arch Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>ARCHIVINGTABLE</atmLabelID>
+                    <atmLongName>Archiving Table</atmLongName>
+                    <atmShortName>Arch Table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>BUSINESSDOCRECORD</atmLabelID>
+                    <atmLongName>Business Doc Record</atmLongName>
+                    <atmShortName>Doc Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>CORE_TABLE</atmLabelID>
+                    <atmLongName>Core Table</atmLongName>
+                    <atmShortName>Core Table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>EDITTABLE</atmLabelID>
+                    <atmLongName>Edit Table</atmLongName>
+                    <atmShortName>Edit Table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>EODC_CILVL_MAINREC</atmLabelID>
+                    <atmLongName>Ci Level Main Record</atmLongName>
+                    <atmShortName>Main Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>EOSD_PROMPT</atmLabelID>
+                    <atmLongName>Prompt Record</atmLongName>
+                    <atmShortName>Prompt Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>FILELAYOUTMODEL</atmLabelID>
+                    <atmLongName>File Layout Model</atmLongName>
+                    <atmShortName>Model</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>FROMDSREC</atmLabelID>
+                    <atmLongName>From Data Set Record</atmLongName>
+                    <atmShortName>From DS Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>INPUT</atmLabelID>
+                    <atmLongName>Input Record</atmLongName>
+                    <atmShortName>Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>MATVW_NAME</atmLabelID>
+                    <atmLongName>Materialized View Name</atmLongName>
+                    <atmShortName>MatVw Name</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>MODEL_RECORD</atmLabelID>
+                    <atmLongName>Model Record</atmLongName>
+                    <atmShortName>Model Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>PROMPT_TABLE</atmLabelID>
+                    <atmLongName>Prompt Table</atmLongName>
+                    <atmShortName>Prmt Table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RECNAME</atmLabelID>
+                    <atmLongName>Record (Table) Name</atmLongName>
+                    <atmShortName>Record</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RECNAME1</atmLabelID>
+                    <atmLongName>Record Name</atmLongName>
+                    <atmShortName>Name</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RECNAME_1</atmLabelID>
+                    <atmLongName>Record Name</atmLongName>
+                    <atmShortName>Name</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RECORD_VIEW</atmLabelID>
+                    <atmLongName>View</atmLongName>
+                    <atmShortName>View</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RECTOTRANS</atmLabelID>
+                    <atmLongName>Record to Translate</atmLongName>
+                    <atmShortName>Translate</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>REC_BASED_ON</atmLabelID>
+                    <atmLongName>Record Based On</atmLongName>
+                    <atmShortName>Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>REQ_REC</atmLabelID>
+                    <atmLongName>*Record Name</atmLongName>
+                    <atmShortName>*Record</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>RUNCNTRLREC</atmLabelID>
+                    <atmLongName>Run Control Record Name</atmLongName>
+                    <atmShortName>Cntrl Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>SD_DATA_STORE</atmLabelID>
+                    <atmLongName>Data Store Record</atmLongName>
+                    <atmShortName>Data Store</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>SEARCH_RECORD</atmLabelID>
+                    <atmLongName>Search Record</atmLongName>
+                    <atmShortName>Search Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>SOURCERECORD</atmLabelID>
+                    <atmLongName>Source Record</atmLongName>
+                    <atmShortName>Source Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TABLE</atmLabelID>
+                    <atmLongName>Table Name</atmLongName>
+                    <atmShortName>Table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TABLENAME</atmLabelID>
+                    <atmLongName>Table Name</atmLongName>
+                    <atmShortName>Tbl Name</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TARGETRECORD</atmLabelID>
+                    <atmLongName>Target Record</atmLongName>
+                    <atmShortName>Target Rec</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TXN_TBL</atmLabelID>
+                    <atmLongName>Transaction Interface Table</atmLongName>
+                    <atmShortName>Txn table</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>USERIDLBL</atmLabelID>
+                    <atmLongName>User ID Record</atmLongName>
+                    <atmShortName>User ID</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>VALUETABLE</atmLabelID>
+                    <atmLongName>Value Table</atmLongName>
+                    <atmShortName>Value Tbl</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>VAT_CNTXT</atmLabelID>
+                    <atmLongName>Level 0 Record</atmLongName>
+                    <atmShortName>Level 0</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388609</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Record (Table) Name</atmLongName>
+              <atmShortName>Record</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>GATHER_STATS</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>1</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-11.52.37.884034</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>GATHER_STATS</atmLabelID>
+                    <atmLongName>Gather Statistcs Action</atmLongName>
+                    <atmShortName>Gather Stats</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Gather Statistcs Action</atmLongName>
+              <atmShortName>Gather Stats</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>ESTIMATE_PERCENT</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>30</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-11.48.06.612770</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>ESTIMATE_PERCENT</atmLabelID>
+                    <atmLongName>Estimate Percent</atmLongName>
+                    <atmShortName>Estimate%</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Estimate Percent</atmLongName>
+              <atmShortName>Estimate%</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>BLOCK_SAMPLE</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>1</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-11.48.06.612770</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>BLOCK_SAMPLE</atmLabelID>
+                    <atmLongName>Block Sample</atmLongName>
+                    <atmShortName>Block Sample</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Block Sample</atmLongName>
+              <atmShortName>Block Sample</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>METHOD_OPT</atmFieldName>
+              <eFieldType>1</eFieldType>
+              <nLength>1000</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-12.22.04.748857</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>METHOD_OPT</atmLabelID>
+                    <atmLongName>Method Opt</atmLongName>
+                    <atmShortName>Method Opt</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Method Opt</atmLongName>
+              <atmShortName>Method Opt</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>DEGREE</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>30</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-12.22.04.748857</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>6</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="192" count="6">
+                  <row>
+                    <atmLabelID>DEGREE</atmLabelID>
+                    <atmLongName>Degree</atmLongName>
+                    <atmShortName>Degree</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>DEGREEOFFERED</atmLabelID>
+                    <atmLongName>Degree Offered</atmLongName>
+                    <atmShortName>Degree Offered</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TS1-DEGREE</atmLabelID>
+                    <atmLongName>Degree</atmLongName>
+                    <atmShortName>Degree</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TS1-DEGREEOFFERED</atmLabelID>
+                    <atmLongName>Degree Offered</atmLongName>
+                    <atmShortName>Degree Offered</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TS2-DEGREE</atmLabelID>
+                    <atmLongName>Degree</atmLongName>
+                    <atmShortName>Degree</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                  <row>
+                    <atmLabelID>TS2-DEGREEOFFERED</atmLabelID>
+                    <atmLongName>Degree Offered</atmLongName>
+                    <atmShortName>Degree Offered</atmShortName>
+                    <bIsDefault>0</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Degree</atmLongName>
+              <atmShortName>Degree</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>GRANULARITY</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>30</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-12.22.04.748857</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>GRANULARITY</atmLabelID>
+                    <atmLongName>Granularity</atmLongName>
+                    <atmShortName>Granularity</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Granularity</atmLongName>
+              <atmShortName>Granularity</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>INCREMENTAL</atmFieldName>
+              <eFieldType>0</eFieldType>
+              <nLength>5</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-12.22.04.748857</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>INCREMENTAL</atmLabelID>
+                    <atmLongName>Incremental</atmLongName>
+                    <atmShortName>Incremental</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Incremental</atmLongName>
+              <atmShortName>Incremental</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+            <row>
+              <fStatus>0</fStatus>
+              <atmFieldName>STALE_PERCENT</atmFieldName>
+              <eFieldType>2</eFieldType>
+              <nLength>3</nLength>
+              <nDecimalPos>0</nDecimalPos>
+              <eFormat>0</eFormat>
+              <nFormatLength>0</nFormatLength>
+              <eImgFmt>0</eImgFmt>
+              <atmFormatFamily></atmFormatFamily>
+              <atmDispFmtName></atmDispFmtName>
+              <nDefCntryYr>50</nDefCntryYr>
+              <nIMEMode>0</nIMEMode>
+              <nKeyboardLayout>0</nKeyboardLayout>
+              <szObjectOwnerID></szObjectOwnerID>
+              <szLastUpdDttm>2017-07-26-12.22.04.748857</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nDescrLongLen>0</nDescrLongLen>
+              <hDescrLong>HANDLE</hDescrLong>
+              <nLabelCount>1</nLabelCount>
+              <hDBFldLabel> HANDLE
+                <rowset name="DBFldLabel" size="32" count="1">
+                  <row>
+                    <atmLabelID>STALE_PERCENT</atmLabelID>
+                    <atmLongName>Stale Percent</atmLongName>
+                    <atmShortName>Stale Percent</atmShortName>
+                    <bIsDefault>1</bIsDefault>
+                  </row>
+                </rowset>
+              </hDBFldLabel>
+              <nOrgLabelCount>0</nOrgLabelCount>
+              <hOrgDBFldLabel>HANDLE</hOrgDBFldLabel>
+              <nNotUsed>0</nNotUsed>
+              <fAuxFlagMask>0</fAuxFlagMask>
+              <atmDefRecName></atmDefRecName>
+              <atmDefFieldName></atmDefFieldName>
+              <atmCurCtlFieldName></atmCurCtlFieldName>
+              <fUseEdit>8388608</fUseEdit>
+              <fUseEdit2>0</fUseEdit2>
+              <atmEditTable></atmEditTable>
+              <nDefGUICtl>99</nDefGUICtl>
+              <atmSetCntrlFld></atmSetCntrlFld>
+              <atmLabelID></atmLabelID>
+              <nTimeZoneUse>0</nTimeZoneUse>
+              <atmTimeZoneFieldName></atmTimeZoneFieldName>
+              <nCurrencyCtlUse>0</nCurrencyCtlUse>
+              <atmRelTmDtFieldName></atmRelTmDtFieldName>
+              <atmLongName>Stale Percent</atmLongName>
+              <atmShortName>Stale Percent</atmShortName>
+              <atmPhysicalRecNameList>GFC_STATS_OVRD     </atmPhysicalRecNameList>
+              <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+              <nContextLabelCount>0</nContextLabelCount>
+            </row>
+          </rowset>
+        </hRft>
+        <nIndexCount>1</nIndexCount>
+        <lpIdt> POINTER
+          <rowset name="IndexDefn" size="720" count="1">
+            <row>
+              <cIndexId>_</cIndexId>
+              <eIndexType>1</eIndexType>
+              <eUniqueFlag>1</eUniqueFlag>
+              <eClusterFlag>1</eClusterFlag>
+              <eActiveFlag>1</eActiveFlag>
+              <nCustKeyOrder>0</nCustKeyOrder>
+              <szComments></szComments>
+              <ePlatformList>1 1 1 1 1 1 1 1    </ePlatformList>
+              <nKeyCount>1</nKeyCount>
+              <lpKdt> POINTER
+                <rowset name="KeyDefn" size="48" count="1">
+                  <row>
+                    <nKeyPosn>1</nKeyPosn>
+                    <szFieldName>RECNAME</szFieldName>
+                    <eAscDesc>1</eAscDesc>
+                  </row>
+                </rowset>
+              </lpKdt>
+              <nDDLCount>0</nDDLCount>
+              <lpIpt>POINTER</lpIpt>
+              <szLastUpdDttm>2018-07-10-14.52.19.105625</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+            </row>
+          </rowset>
+        </lpIdt>
+        <nDDLCount>0</nDDLCount>
+        <lpRpt>POINTER</lpRpt>
+        <nDelFieldCount>0</nDelFieldCount>
+        <hDelRft>HANDLE</hDelRft>
+        <hOrgDefn>HANDLE</hOrgDefn>
+        <hExpDefn>HANDLE</hExpDefn>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <szSystemIDFieldName></szSystemIDFieldName>
+        <szRowLevelTimeStampFieldName></szRowLevelTimeStampFieldName>
+        <nTblSpcCount>1</nTblSpcCount>
+        <lpSpct> POINTER
+          <rowset name="RecTblSpc" size="82" count="1">
+            <row>
+              <szDDLSpaceName>PTTBL</szDDLSpaceName>
+              <szDBName>PSFSDMO</szDBName>
+              <eDBType> </eDBType>
+            </row>
+          </rowset>
+        </lpSpct>
+        <nSecRecCount>0</nSecRecCount>
+        <hSecRec>HANDLE</hSecRec>
+        <nMatVwDefnCount>0</nMatVwDefnCount>
+        <hMatVwDefn>HANDLE</hMatVwDefn>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+        <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+        <szObjectOwnerID>PPT</szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>38</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>RECNAME</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>15</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>60</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="60" count="1">
+            <row>
+              <hDescrLong>Record (Table) Name           </hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>35</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="9240" count="35">
+            <row>
+              <szLabelID>ACE_RECNAME</szLabelID>
+              <szLongName>Record Name</szLongName>
+              <szShortName>Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚｺｰﾄﾞ名</szLongName>
+                    <szShortName>ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>ACE_RECNAME1</szLabelID>
+              <szLongName>Delete Table Name</szLongName>
+              <szShortName>Table Name</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>削除ﾃｰﾌﾞﾙ名</szLongName>
+                    <szShortName>ﾃｰﾌﾞﾙ名</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>ADSREC</szLabelID>
+              <szLongName>Data Set Record</szLongName>
+              <szShortName>Data Set Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾃﾞｰﾀ ｾｯﾄ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾃﾞｰﾀ ｾｯﾄ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>APPLICATIONMC_DEFN</szLabelID>
+              <szLongName>Application MC_DEFN Record</szLongName>
+              <szShortName>App MC_</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ｱﾌﾟﾘｹｰｼｮﾝ MC_DEFN ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>App MC_</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>ARCHIVE</szLabelID>
+              <szLongName>Archiving Record</szLongName>
+              <szShortName>Arch Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ｱｰｶｲﾌﾞ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ｱｰｶｲﾌﾞ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>ARCHIVINGTABLE</szLabelID>
+              <szLongName>Archiving Table</szLongName>
+              <szShortName>Arch Table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ｱｰｶｲﾌﾞ ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>ｱｰｶｲﾌﾞ ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>BUSINESSDOCRECORD</szLabelID>
+              <szLongName>Business Doc Record</szLongName>
+              <szShortName>Doc Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾋﾞｼﾞﾈｽ ﾄﾞｷｭﾒﾝﾄ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>Doc ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>CORE_TABLE</szLabelID>
+              <szLongName>Core Table</szLongName>
+              <szShortName>Core Table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ｺｱ ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>ｺｱ ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>EDITTABLE</szLabelID>
+              <szLongName>Edit Table</szLongName>
+              <szShortName>Edit Table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>編集ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>編集ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>EODC_CILVL_MAINREC</szLabelID>
+              <szLongName>Ci Level Main Record</szLongName>
+              <szShortName>Main Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>CI ﾚﾍﾞﾙ ﾒｲﾝ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾒｲﾝ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>EOSD_PROMPT</szLabelID>
+              <szLongName>Prompt Record</szLongName>
+              <szShortName>Prompt Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾌﾟﾛﾝﾌﾟﾄ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾌﾟﾛﾝﾌﾟﾄ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>FILELAYOUTMODEL</szLabelID>
+              <szLongName>File Layout Model</szLongName>
+              <szShortName>Model</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾌｧｲﾙ ﾚｲｱｳﾄ ﾓﾃﾞﾙ</szLongName>
+                    <szShortName>ﾓﾃﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>FROMDSREC</szLabelID>
+              <szLongName>From Data Set Record</szLongName>
+              <szShortName>From DS Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>元ﾃﾞｰﾀ ｾｯﾄ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>開始 DS ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>INPUT</szLabelID>
+              <szLongName>Input Record</szLongName>
+              <szShortName>Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>入力ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>MATVW_NAME</szLabelID>
+              <szLongName>Materialized View Name</szLongName>
+              <szShortName>MatVw Name</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾏﾃﾘｱﾗｲｽﾞﾄﾞ ﾋﾞｭｰ名</szLongName>
+                    <szShortName>MatVw 名</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>MODEL_RECORD</szLabelID>
+              <szLongName>Model Record</szLongName>
+              <szShortName>Model Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾓﾃﾞﾙ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾓﾃﾞﾙ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>PROMPT_TABLE</szLabelID>
+              <szLongName>Prompt Table</szLongName>
+              <szShortName>Prmt Table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾌﾟﾛﾝﾌﾟﾄ ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>ﾌﾟﾛﾝﾌﾟﾄ ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>RECNAME</szLabelID>
+              <szLongName>Record (Table) Name</szLongName>
+              <szShortName>Record</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚｺｰﾄﾞ (ﾃｰﾌﾞﾙ) 名</szLongName>
+                    <szShortName>ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>RECNAME1</szLabelID>
+              <szLongName>Record Name</szLongName>
+              <szShortName>Name</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚｺｰﾄﾞ名</szLongName>
+                    <szShortName>名前</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>RECNAME_1</szLabelID>
+              <szLongName>Record Name</szLongName>
+              <szShortName>Name</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚｺｰﾄﾞ名</szLongName>
+                    <szShortName>名前</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>RECORD_VIEW</szLabelID>
+              <szLongName>View</szLongName>
+              <szShortName>View</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾋﾞｭｰ</szLongName>
+                    <szShortName>ﾋﾞｭｰ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>RECTOTRANS</szLabelID>
+              <szLongName>Record to Translate</szLongName>
+              <szShortName>Translate</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>翻訳対象ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>翻訳</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>REC_BASED_ON</szLabelID>
+              <szLongName>Record Based On</szLongName>
+              <szShortName>Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚｺｰﾄﾞ基準</szLongName>
+                    <szShortName>ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>REQ_REC</szLabelID>
+              <szLongName>*Record Name</szLongName>
+              <szShortName>*Record</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>RUNCNTRLREC</szLabelID>
+              <szLongName>Run Control Record Name</szLongName>
+              <szShortName>Cntrl Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾗﾝ ｺﾝﾄﾛｰﾙ ﾚｺｰﾄﾞ名</szLongName>
+                    <szShortName>ｺﾝﾄﾛｰﾙ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>SD_DATA_STORE</szLabelID>
+              <szLongName>Data Store Record</szLongName>
+              <szShortName>Data Store</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾃﾞｰﾀ ｽﾄｱ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾃﾞｰﾀ ｽﾄｱ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>SEARCH_RECORD</szLabelID>
+              <szLongName>Search Record</szLongName>
+              <szShortName>Search Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>検索ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>検索ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>SOURCERECORD</szLabelID>
+              <szLongName>Source Record</szLongName>
+              <szShortName>Source Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ｿｰｽ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ｿｰｽ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>TABLE</szLabelID>
+              <szLongName>Table Name</szLongName>
+              <szShortName>Table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾃｰﾌﾞﾙ名</szLongName>
+                    <szShortName>ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>TABLENAME</szLabelID>
+              <szLongName>Table Name</szLongName>
+              <szShortName>Tbl Name</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾃｰﾌﾞﾙ名</szLongName>
+                    <szShortName>ﾃｰﾌﾞﾙ名</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>TARGETRECORD</szLabelID>
+              <szLongName>Target Record</szLongName>
+              <szShortName>Target Rec</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾀｰｹﾞｯﾄ ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾀｰｹﾞｯﾄ ﾚｺｰﾄﾞ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>TXN_TBL</szLabelID>
+              <szLongName>Transaction Interface Table</szLongName>
+              <szShortName>Txn table</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾄﾗﾝｻﾞｸｼｮﾝ ｲﾝﾀｰﾌｪｲｽ ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>ﾄﾗﾝｻﾞｸｼｮﾝﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>USERIDLBL</szLabelID>
+              <szLongName>User ID Record</szLongName>
+              <szShortName>User ID</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾕｰｻﾞｰ ID ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾕｰｻﾞｰ ID</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>VALUETABLE</szLabelID>
+              <szLongName>Value Table</szLongName>
+              <szShortName>Value Tbl</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>値ﾃｰﾌﾞﾙ</szLongName>
+                    <szShortName>値ﾃｰﾌﾞﾙ</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+            <row>
+              <szLabelID>VAT_CNTXT</szLabelID>
+              <szLongName>Level 0 Record</szLongName>
+              <szShortName>Level 0</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.44.25.481758</szLastUpdDttm>
+              <szLastUpdOprId>PPLSOFT</szLastUpdOprId>
+              <nLangCount>1</nLangCount>
+              <hLang> HANDLE
+                <rowset name="DBFldLabelLang" size="102" count="1">
+                  <row>
+                    <szLanguageCd>JPN</szLanguageCd>
+                    <szLongName>ﾚﾍﾞﾙ 0 ﾚｺｰﾄﾞ</szLongName>
+                    <szShortName>ﾚﾍﾞﾙ 0</szShortName>
+                  </row>
+                </rowset>
+              </hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>RECNAME</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Record (Table) Name</szLongName>
+        <szShortName>Record</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.33.502839</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>43</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>GATHER_STATS</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>1</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>GATHER_STATS</szLabelID>
+              <szLongName>Gather Statistcs Action</szLongName>
+              <szShortName>Gather Stats</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.33.502839</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>GATHER_STATS</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Gather Statistcs Action</szLongName>
+        <szShortName>Gather Stats</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.31.310198</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>42</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>ESTIMATE_PERCENT</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>30</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>ESTIMATE_PERCENT</szLabelID>
+              <szLongName>Estimate Percent</szLongName>
+              <szShortName>Estimate%</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.31.310198</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>ESTIMATE_PERCENT</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Estimate Percent</szLongName>
+        <szShortName>Estimate%</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.26.029255</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>40</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>BLOCK_SAMPLE</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>1</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>BLOCK_SAMPLE</szLabelID>
+              <szLongName>Block Sample</szLongName>
+              <szShortName>Block Sample</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.26.029255</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>BLOCK_SAMPLE</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Block Sample</szLongName>
+        <szShortName>Block Sample</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.39.339282</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>46</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>METHOD_OPT</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>1</eFieldType>
+        <nLength>1000</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>METHOD_OPT</szLabelID>
+              <szLongName>Method Opt</szLongName>
+              <szShortName>Method Opt</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.39.339282</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>METHOD_OPT</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Method Opt</szLongName>
+        <szShortName>Method Opt</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>41</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>DEGREE</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>30</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>6</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="1584" count="6">
+            <row>
+              <szLabelID>DEGREE</szLabelID>
+              <szLongName>Degree</szLongName>
+              <szShortName>Degree</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>DEGREEOFFERED</szLabelID>
+              <szLongName>Degree Offered</szLongName>
+              <szShortName>Degree Offered</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>TS1-DEGREE</szLabelID>
+              <szLongName>Degree</szLongName>
+              <szShortName>Degree</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>TS1-DEGREEOFFERED</szLabelID>
+              <szLongName>Degree Offered</szLongName>
+              <szShortName>Degree Offered</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>TS2-DEGREE</szLabelID>
+              <szLongName>Degree</szLongName>
+              <szShortName>Degree</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szLabelID>TS2-DEGREEOFFERED</szLabelID>
+              <szLongName>Degree Offered</szLongName>
+              <szShortName>Degree Offered</szShortName>
+              <bIsDefault>0</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.29.181048</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>DEGREE</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Degree</szLongName>
+        <szShortName>Degree</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.35.537188</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>44</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>GRANULARITY</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>30</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>GRANULARITY</szLabelID>
+              <szLongName>Granularity</szLongName>
+              <szShortName>Granularity</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.35.537188</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>GRANULARITY</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Granularity</szLongName>
+        <szShortName>Granularity</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.37.454035</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>45</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>INCREMENTAL</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>0</eFieldType>
+        <nLength>5</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>INCREMENTAL</szLabelID>
+              <szLongName>Incremental</szLongName>
+              <szShortName>Incremental</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.37.454035</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>INCREMENTAL</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Incremental</szLongName>
+        <szShortName>Incremental</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="FIELD">
+    <rowset name="Field" size="936" count="1">
+      <row>
+        <szLastUpdDttm>2018-07-10-14.52.41.160215</szLastUpdDttm>
+        <szLastUpdOprId>PS</szLastUpdOprId>
+        <szObjectOwnerID></szObjectOwnerID>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>47</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>STALE_PERCENT</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <eFieldType>2</eFieldType>
+        <nLength>3</nLength>
+        <nDecimalPos>0</nDecimalPos>
+        <eFormat>0</eFormat>
+        <nFormatLength>0</nFormatLength>
+        <eImgFmt>0</eImgFmt>
+        <szFormatFamily></szFormatFamily>
+        <szDispFmtName></szDispFmtName>
+        <nDefCntryYr>50</nDefCntryYr>
+        <nIMEMode>0</nIMEMode>
+        <nKeyboardLayout>0</nKeyboardLayout>
+        <nNotUsed>0</nNotUsed>
+        <fAuxFlagMask>0</fAuxFlagMask>
+        <nDescrLongLen>240</nDescrLongLen>
+        <hDescrLong> HANDLE
+          <rowset name="char" size="240" count="1">
+            <row>
+              <hDescrLong>dmk 10.07.2018 - column on metadata table for GFCPSSTATS package.  Record created to prevent table appearing in DDDAUDIT</hDescrLong>
+            </row>
+          </rowset>
+        </hDescrLong>
+        <nLabelCount>1</nLabelCount>
+        <hDBFldLabel> HANDLE
+          <rowset name="DBFldLabel" size="264" count="1">
+            <row>
+              <szLabelID>STALE_PERCENT</szLabelID>
+              <szLongName>Stale Percent</szLongName>
+              <szShortName>Stale Percent</szShortName>
+              <bIsDefault>1</bIsDefault>
+              <szLastUpdDttm>2018-07-10-14.52.41.160215</szLastUpdDttm>
+              <szLastUpdOprId>PS</szLastUpdOprId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hDBFldLabel>
+        <szDefRecName></szDefRecName>
+        <szDefFieldName></szDefFieldName>
+        <szCurCtlFieldName></szCurCtlFieldName>
+        <fUseEdit>0</fUseEdit>
+        <fUseEdit2>0</fUseEdit2>
+        <szEditTable></szEditTable>
+        <nDefGUICtl>0</nDefGUICtl>
+        <szSetCntrlFld></szSetCntrlFld>
+        <szLabelID>STALE_PERCENT</szLabelID>
+        <nTimeZoneUse>0</nTimeZoneUse>
+        <szTimeZoneFieldName></szTimeZoneFieldName>
+        <nCurrencyCtlUse>0</nCurrencyCtlUse>
+        <szLongName>Stale Percent</szLongName>
+        <szShortName>Stale Percent</szShortName>
+        <fStatus>0</fStatus>
+        <nLangCount>0</nLangCount>
+        <hLang>HANDLE</hLang>
+        <nContextLabelCount>0</nContextLabelCount>
+        <hDBFldContextLabel>HANDLE</hDBFldContextLabel>
+      </row>
+    </rowset>
+  </instance>
+  <instance class="XTM">
+    <rowset name="XtmDefn" size="392" count="1">
+      <row>
+        <nUseCount>1</nUseCount>
+        <bUseUpdate>1</bUseUpdate>
+        <lVersion>4</lVersion>
+        <lSwapVersion>0</lSwapVersion>
+        <nSwapNum>0</nSwapNum>
+        <szFieldName>GATHER_STATS</szFieldName>
+        <szLanguageCd>ENG</szLanguageCd>
+        <nValueCount>4</nValueCount>
+        <hFvt> HANDLE
+          <rowset name="XtmValue" size="1056" count="4">
+            <row>
+              <szFieldValue>D</szFieldValue>
+              <szEffDt>1900-01-01</szEffDt>
+              <cEffStatus>A</cEffStatus>
+              <szLongName>Delete Statistics</szLongName>
+              <szShortName>Delete</szShortName>
+              <szLastUpdDttm>2018-07-10-14.44.26.481519</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nSyncId>54130</nSyncId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szFieldValue>G</szFieldValue>
+              <szEffDt>1900-01-01</szEffDt>
+              <cEffStatus>A</cEffStatus>
+              <szLongName>Gather</szLongName>
+              <szShortName>Gather</szShortName>
+              <szLastUpdDttm>2018-07-10-14.44.26.481519</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nSyncId>54131</nSyncId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szFieldValue>N</szFieldValue>
+              <szEffDt>1900-01-01</szEffDt>
+              <cEffStatus>A</cEffStatus>
+              <szLongName>Do Not Gather</szLongName>
+              <szShortName>Do Not</szShortName>
+              <szLastUpdDttm>2018-07-10-14.44.26.481519</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nSyncId>54132</nSyncId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+            <row>
+              <szFieldValue>R</szFieldValue>
+              <szEffDt>1900-01-01</szEffDt>
+              <cEffStatus>A</cEffStatus>
+              <szLongName>Refresh Stale Stats</szLongName>
+              <szShortName>Refresh</szShortName>
+              <szLastUpdDttm>2018-07-10-14.44.26.481519</szLastUpdDttm>
+              <szLastUpdOprId>D9KURT</szLastUpdOprId>
+              <nSyncId>54133</nSyncId>
+              <nLangCount>0</nLangCount>
+              <hLang>HANDLE</hLang>
+            </row>
+          </rowset>
+        </hFvt>
+      </row>
+    </rowset>
+  </instance>

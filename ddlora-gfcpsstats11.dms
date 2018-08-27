@@ -26,9 +26,9 @@ VALUES(
 \
 $DATATYPES NUMERIC,NUMERIC,NUMERIC,NUMERIC,CHARACTER
 4,2,0,0,$long
-gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME],p_verbose=>TRUE);
+gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME]);
 //
 5,2,0,0,$long
-gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME],p_verbose=>TRUE);
+gfcpsstats11.ps_stats(p_ownname=>[DBNAME],p_tabname=>[TBNAME]);
 //
 /

@@ -11,7 +11,7 @@ REM (c) Go-Faster Consultancy 2008-2012
 ------------------------------------------------------------------------------------------
 clear screen
 set echo on serveroutput on lines 100 wrap off
-spool gfcpsstats11
+spool gfcpsstats11_metadata
 
 REM DELETE FROM ps_gfc_stats_ovrd;
 

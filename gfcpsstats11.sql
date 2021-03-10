@@ -732,50 +732,52 @@ BEGIN
   ,p_temptblinstance =>l_temptblinstance
   ,p_msg             =>l_msg
   );
-  
-  BEGIN
-    SELECT DECODE(stattype_locked,'ALL','Y','N')
-    INTO   l_lock_stats
-    FROM   user_tab_statistics 
-    WHERE  table_name = i.table_name
-    AND    partition_name IS NULL
-    AND    subpartition_name IS NULL;
-  EXCEPTION WHEN no_data_found THEN
-    l_lock_stats := '';
-  END;
-  
-  IF (l_rectype = 0 AND l_lock_stats = 'N') OR (l_rectype = 7 AND l_lock_stats = 'Y')
-    THEN 
-      l_lock_stats := '';
-  END IF;
 
-  BEGIN
-   INSERT INTO ps_gfc_stats_ovrd
-   (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
-   VALUES
-   (l_recname, 'G', ' '
-   , NVL(i.estimate_percent,' ')
-   , NVL(i.method_opt,' ')
-   , NVL(i.degree,' ')
-   , NVL(i.granularity,' ')
-   , NVL(i.incremental,' ')
-   , NVL(i.stale_percent,0)
-   , NVL(i.pref_over_param,' ')
-   , NVL(l_lock_stats,' ')
-   );
-  EXCEPTION WHEN dup_val_on_index THEN
-   UPDATE ps_gfc_stats_ovrd
-   SET    estimate_percent = NVL(i.estimate_percent,' ')
-   ,      method_opt = NVL(i.method_opt,' ')
-   ,      degree = NVL(i.degree,' ')
-   ,      granularity = NVL(i.granularity,' ')
-   ,      incremental = NVL(i.incremental,' ')
-   ,      stale_percent = NVL(i.stale_percent,0)
-   ,      pref_over_param = NVL(i.pref_over_param,' ')
-   ,      lock_stats = NVL(l_lock_stats,' ')
-   WHERE  recname = l_recname;
-  END;
- 
+  IF l_recname IS NOT NULL THEN  
+    BEGIN
+      SELECT DECODE(stattype_locked,'ALL','Y','N')
+      INTO   l_lock_stats
+      FROM   user_tab_statistics 
+      WHERE  table_name = i.table_name
+      AND    partition_name IS NULL
+      AND    subpartition_name IS NULL;
+    EXCEPTION WHEN no_data_found THEN
+      l_lock_stats := '';
+    END;
+  
+    IF (l_rectype = 0 AND l_lock_stats = 'N') OR (l_rectype = 7 AND l_lock_stats = 'Y')
+      THEN 
+        l_lock_stats := '';
+    END IF;
+
+    BEGIN
+      INSERT INTO ps_gfc_stats_ovrd
+      (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+      VALUES
+      (l_recname, 'G', ' '
+      ,NVL(i.estimate_percent,' ')
+      ,NVL(i.method_opt,' ')
+      ,NVL(i.degree,' ')
+      ,NVL(i.granularity,' ')
+      ,NVL(i.incremental,' ')
+      ,NVL(i.stale_percent,0)
+      ,NVL(i.pref_over_param,' ')
+      ,NVL(l_lock_stats,' ')
+      );
+    EXCEPTION WHEN dup_val_on_index THEN
+      UPDATE ps_gfc_stats_ovrd
+      SET    estimate_percent = NVL(i.estimate_percent,' ')
+      ,      method_opt = NVL(i.method_opt,' ')
+      ,      degree = NVL(i.degree,' ')
+      ,      granularity = NVL(i.granularity,' ')
+      ,      incremental = NVL(i.incremental,' ')
+      ,      stale_percent = NVL(i.stale_percent,0)
+      ,      pref_over_param = NVL(i.pref_over_param,' ')
+      ,      lock_stats = NVL(l_lock_stats,' ')
+      WHERE  recname = l_recname;
+    END;
+  END IF;
+  
   --merge in lock information for locked type 0 records, or records with current lock overrides
   MERGE INTO ps_gfc_stats_ovrd u 
   USING (

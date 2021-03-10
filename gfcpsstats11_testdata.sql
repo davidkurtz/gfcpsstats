@@ -28,10 +28,10 @@ FROM	user_tab_stat_prefs
 /
 
 DELETE FROM ps_gfc_stats_ovrd;
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES ('TL_PROF_WRK','D','0',' ',' ',' ',' ',' ',0);
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES ('TL_PROF_WRK','D','0',' ',' ',' ',' ',' ',0,' ',' ');
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0,' ',' ');
 
 commit
 /
@@ -75,8 +75,8 @@ begin gfcpsstats11.ps_stats('SYSADM','PS_TL_PROF_LIST6',TRUE); end;
 begin gfcpsstats11.ps_stats('SYSADM','PS_TL_PROF_LIST',TRUE); end;
 /
 
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES ('TL_WRK01_RCD','N',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES ('TL_WRK01_RCD','N',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0,' ',' ');
 
 --will not collect stats
 begin gfcpsstats11.ps_stats('SYSADM','PS_TL_WRK01_RCD',TRUE); end;
@@ -103,8 +103,8 @@ begin gfcpsstats11.ps_stats('SYSADM','PS_TL_PROF_WRK12',TRUE); end;
 
 --check DDL trigger works
 DELETE FROM ps_gfc_stats_ovrd;
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0);
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES ('TL_PROF_LIST','G','42',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0, ' ', ' ');
 
 SELECT 	*
 FROM	user_tab_stat_prefs
@@ -147,8 +147,8 @@ order by table_name
 
 
 --now lets set up for a n --added 6.6.2009
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0); 
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0, ' ', ' '); 
 execute psftapi.set_prcsinstance(4,'GFCTEST');
 
 DELETE FROM ps_aetemptblmgr
@@ -175,16 +175,16 @@ VALUES (0,'TL_TA_BATCHA',4,'PS','Wibble','GFCTEST',SYSDATE,'Y',1,1) --restart di
 /
 
 --and this will collect stats on non-shared instance of GTT.
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0); 
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0,' ',' '); 
 begin gfcpsstats11.ps_stats('SYSADM','PS_TL_TA_BATCHA4',TRUE); end;
 /
 DELETE FROM ps_gfc_stats_ovrd WHERE recname = 'TL_TA_BATCHA';
 begin gfcpsstats11.ps_stats('SYSADM','PS_TL_TA_BATCHA4',TRUE); end;
 /
 
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent) 
-VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0); 
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats) 
+VALUES('TL_TA_BATCHA','G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0,' ',' '); 
 begin gfcpsstats11.ps_stats('SYSADM','PS_TL_TA_BATCHA',TRUE); end;
 /
 DELETE FROM ps_gfc_stats_ovrd WHERE recname = 'TL_TA_BATCHA';
@@ -221,6 +221,26 @@ BEGIN
  END LOOP;
 END;
 /
+
+exec gfcpsstats11.generate_metadata;
+
+column table_name format a18
+column estimate_percent heading 'Est|Pct' format a10
+column method_opt       heading 'Method|Opt' format a10
+column degree format a10
+column granularity format a10
+column incremental format a10
+column stale_percent heading 'Stale|Percent' format 999
+column pref_over_param heading 'Pref Over|Param' format a10
+select * from ps_gfc_stats_ovrd;
+
+update ps_gfc_stats_ovrd
+set lock_stats = 'N'
+where recname = 'JOB';
+
+select table_name, stattype_locked
+from user_tab_statistics
+where stattype_locked is not null;
 
 pause
 ------------------------------------------------------------------------------------------*/

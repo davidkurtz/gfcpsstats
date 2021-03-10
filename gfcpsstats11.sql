@@ -1,5 +1,5 @@
 REM gfcpsstats11.sql
-REM (c) Go-Faster Consultancy 2008-2012
+REM (c) Go-Faster Consultancy 2008-2021
 REM dbms_stats wrapper script for Oracle 11gR2 PT>=8.48
 REM 12. 2.2009 force stats collection on regular tables, skip GTTs
 REM 24. 3.2009 added refresh procedure for partitioned objects, gather_table_stats proc for wrapping
@@ -15,8 +15,9 @@ REM 25.04.2014 TRIGGER gfc_stat_ovrd_stored_stmt: replace double semi-colon on e
 REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppress exception when trying to create duplicate jobs
 REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
 REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
+REM 10.03.2021 enhancements for preferences_overrides_parameters and exceptions to table statistics locking 
 clear screen
-set echo on serveroutput on lines 100 wrap off
+set echo on serveroutput on lines 180 pages 50 wrap off
 spool gfcpsstats11
 
 ROLLBACK --just to be safe
@@ -25,7 +26,7 @@ ROLLBACK --just to be safe
 ------------------------------------------------------------------------------------------------
 --This record should be created in Application Designer
 --a number of columns have been added for 11g so alter table commands included for upgrade
---CASCASE - is not a part of the metadata becasue we always want to cascade
+--CASCASE - is not a part of the metadata becasue we always want to cascade, and is the default
 --NOINVALIDATE - is not a part of metadata because we always want to invalidate cursors
 ------------------------------------------------------------------------------------------------
 --DROP TABLE sysadm.ps_gfc_stats_ovrd PURGE;
@@ -40,12 +41,16 @@ CREATE TABLE sysadm.ps_gfc_stats_ovrd
 ,granularity      VARCHAR2(30)   NOT NULL --same as dbms_stats.granularity parameter
 ,incremental      VARCHAR2(5)    NOT NULL --Y/N - same as dbms_stats table preference INCREMENTAL
 ,stale_percent    NUMBER         NOT NULL --same as dbms_stats table preference STALE_PERCENT
+,pref_over_param  VARCHAR2(1)    NOT NULL --TRUE/FALSE
+,lock_stats       VARCHAR2(1)    NOT NULL --Y/N - lock table stats
 ) TABLESPACE PTTBL PCTFREE 10 PCTUSED 80
 /
 
-CREATE UNIQUE  iNDEX ps_gfc_stats_ovrd ON ps_gfc_stats_ovrd (recname)
- TABLESPACE PSINDEX STORAGE (INITIAL 40000 NEXT 100000 MAXEXTENTS
- UNLIMITED PCTINCREASE 0) PCTFREE 10 NOPARALLEL LOGGING
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(1) NOT NULL /*TRUE/FALSE*/;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) NOT NULL /*Y/N - lock table stats*/;
+
+CREATE UNIQUE  iNDEX sysadm.ps_gfc_stats_ovrd ON sysadm.ps_gfc_stats_ovrd (recname)
+TABLESPACE PSINDEX STORAGE PCTFREE 10 NOPARALLEL LOGGING
 /
 
 ------------------------------------------------------------------------------------------------
@@ -423,6 +428,22 @@ BEGIN
 END table_to_recname;
 
 ------------------------------------------------------------------------------------------------
+--private procedure to set a single preference on a table, or remove it if parameter is null
+------------------------------------------------------------------------------------------------
+PROCEDURE set_table_pref
+(p_tabname VARCHAR2
+,p_pname   VARCHAR2
+,p_value   VARCHAR2 DEFAULT NULL
+) IS
+BEGIN
+--msg('set_table_pref(tabname='||p_tabname||',pname='||p_pname||',value='||p_value||')');
+ IF p_value IS NULL THEN
+  sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname);
+ ELSE
+  sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname, pvalue=>p_value);
+ END IF;
+END set_table_pref;
+------------------------------------------------------------------------------------------------
 --public procedure to set table preferences on named tables called from DDL trigger
 ------------------------------------------------------------------------------------------------
 PROCEDURE set_table_prefs
@@ -433,7 +454,10 @@ PROCEDURE set_table_prefs
  l_rectype         INTEGER;
  l_temptblinstance VARCHAR2(2 CHAR) := '';
  l_msg             VARCHAR2(200 CHAR);
+ l_oraver          NUMBER;
 BEGIN
+ l_oraver := TO_NUMBER(DBMS_DB_VERSION.VERSION|| '.' ||DBMS_DB_VERSION.RELEASE);
+ 
  IF p_recname IS NULL THEN
   table_to_recname(p_tabname, l_recname, l_rectype, l_temptblinstance, l_msg);
  ELSE
@@ -450,11 +474,13 @@ BEGIN
   ,      NULLIF(o.granularity,' ') granularity
   ,      NULLIF(o.incremental,' ') incremental
   ,      NULLIF(o.stale_percent,0) stale_percent
+  ,      NULLIF(o.pref_over_param,' ') pref_over_param
+  ,      NULLIF(o.lock_stats,' ') lock_stats
   FROM   user_tables t, psrecdefn r
    LEFT OUTER JOIN ps_gfc_stats_ovrd o
    ON   o.recname = r.recname
   WHERE  r.recname = l_recname
-  AND    ((t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%')
+  AND    (  (t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%')
          OR (t.table_name LIKE DECODE(r.sqltablename,' ','PSY'||r.recname,r.sqltablename)||'%')
          OR (t.table_name LIKE DECODE(r.sqltablename,' ','GFC_'||r.recname,r.sqltablename)||'%'))
   AND    t.table_name = p_tabname
@@ -465,70 +491,33 @@ BEGIN
  	||',degree='||i.degree
  	||',granularity='||i.granularity
  	||',incremental='||i.incremental
-	||',stale_percent='||i.stale_percent||')');
+	||',stale_percent='||i.stale_percent
+	||',pref_over_param='||i.pref_over_param
+	||')');
 
-  --cascade is not in the metadata so we always set it to true
-  IF i.recname IS NULL THEN
-    sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'CASCADE');
-  ELSE
-    sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'CASCADE', pvalue=>'TRUE');
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'CASCADE'); --10.3.21 - cascade is not in the metadata so we will unset it 
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'ESTIMATE_PERCENT', p_value=>i.estimate_percent);
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'METHOD_OPT',       p_value=>i.method_opt);
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'DEGREE',           p_value=>i.degree);
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'GRANULARITY',      p_value=>i.granularity);
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'INCREMENTAL',      p_value=>i.incremental);
+  set_table_pref(p_tabname=>p_tabname, p_pname=>'STALE_PERCENT',    p_value=>i.stale_percent);
+   
+  IF l_oraver >= 12.2 THEN --new preference 12.2
+    set_table_pref(p_tabname=>p_tabname, p_pname=>'PREFERENCE_OVERRIDES_PARAMETER', p_value=>i.pref_over_param);
   END IF;
-
-  IF i.estimate_percent IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'ESTIMATE_PERCENT');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'ESTIMATE_PERCENT', pvalue=>i.estimate_percent);
+  
+  IF i.lock_stats IS NOT NULL THEN --10.3.2021 not a preference by added to metadata
+    IF i.lock_stats = 'Y' THEN
+	  sys.dbms_stats.lock_table_stats(ownname=>user, tabname=>p_tabname);
+	ELSIF i.lock_stats = 'N' THEN
+	  sys.dbms_stats.unlock_table_stats(ownname=>user, tabname=>p_tabname);
+	END IF;
   END IF;
-
-  IF i.method_opt IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'METHOD_OPT');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'METHOD_OPT', pvalue=>i.method_opt);
-  END IF;
-
-  IF i.degree IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'DEGREE');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'DEGREE', pvalue=>i.degree);
-  END IF;
-
-  IF i.granularity IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'GRANULARITY');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'GRANULARITY', pvalue=>i.granularity);
-  END IF;
-
-  IF i.incremental IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'INCREMENTAL');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'INCREMENTAL', pvalue=>i.incremental);
-  END IF;
-
-  IF i.stale_percent IS NULL THEN
-   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'STALE_PERCENT');
-  ELSE
-   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>'STALE_PERCENT', pvalue=>i.stale_percent);
-  END IF;
-
+  
  END LOOP;
 END set_table_prefs;
 
-------------------------------------------------------------------------------------------------
---private procedure to set a single preference on a table, or remove it if parameter is null
-------------------------------------------------------------------------------------------------
-PROCEDURE set_table_pref
-(p_tabname VARCHAR2
-,p_pname   VARCHAR2
-,p_value   VARCHAR2 DEFAULT NULL
-) IS
-BEGIN
---msg('set_table_pref(tabname='||p_tabname||',pname='||p_pname||',value='||p_value||')');
- IF p_value IS NULL THEN
-  sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname);
- ELSE
-  sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname, pvalue=>p_value);
- END IF;
-END set_table_pref;
 ------------------------------------------------------------------------------------------------
 --public procedure to set table preferences on tables relating to named record
 --note that this time the preferences are passed into the procedure not retrieved from 
@@ -719,52 +708,22 @@ PROCEDURE generate_metadata IS
  l_rectype          INTEGER;
  l_temptblinstance  VARCHAR2(2 CHAR) := '';
  l_msg              VARCHAR2(200 CHAR);
+ l_lock_stats       VARCHAR2(1 CHAR);
 BEGIN
  FOR i IN (
-  SELECT x.table_name, s.estimate_percent, m.method_opt, d.degree, p.stale_percent, g.granularity, i.incremental
-   FROM (SELECT DISTINCT table_name FROM user_tab_stat_prefs) x
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) estimate_percent
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'ESTIMATE_PERCENT'
-     ) s
-     ON s.table_name = x.table_name
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) method_opt
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'METHOD_OPT'
-     ) m
-     ON m.table_name = s.table_name
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) degree
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'DEGREE'
-     ) d
-     ON m.table_name = s.table_name
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) stale_percent
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'STALE_PERCENT'
-     ) p
-     ON p.table_name = s.table_name
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) granularity
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'GRANULARITY'
-     ) g
-     ON g.table_name = s.table_name
-    LEFT OUTER JOIN (
-     SELECT table_name
-     ,      NULLIF(preference_value,dbms_stats.get_prefs(preference_name)) incremental
-     FROM   user_tab_stat_prefs
-     WHERE  preference_name = 'INCREMENTAL'
-     ) i
-     ON i.table_name = s.table_name
+  SELECT *
+  FROM   user_tab_stat_prefs
+  PIVOT ( 
+    MAX(preference_value) FOR preference_name IN
+    ('ESTIMATE_PERCENT' estimate_percent
+	,'METHOD_OPT' method_opt
+    ,'DEGREE' degree
+    ,'GRANULARITY' granularity
+    ,'INCREMENTAL' incremental
+    ,'STALE_PERCENT' stale_percent
+    ,'PREFERENCE_OVERRIDES_PARAMETER' pref_over_param
+   ))
+  ORDER BY table_name
  ) LOOP
   table_to_recname
   (p_tabname         =>i.table_name
@@ -773,10 +732,26 @@ BEGIN
   ,p_temptblinstance =>l_temptblinstance
   ,p_msg             =>l_msg
   );
+  
+  BEGIN
+    SELECT DECODE(stattype_locked,'ALL','Y','N')
+    INTO   l_lock_stats
+    FROM   user_tab_statistics 
+    WHERE  table_name = i.table_name
+    AND    partition_name IS NULL
+    AND    subpartition_name IS NULL;
+  EXCEPTION WHEN no_data_found THEN
+    l_lock_stats := '';
+  END;
+  
+  IF (l_rectype = 0 AND l_lock_stats = 'N') OR (l_rectype = 7 AND l_lock_stats = 'Y')
+    THEN 
+      l_lock_stats := '';
+  END IF;
 
   BEGIN
    INSERT INTO ps_gfc_stats_ovrd
-   (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent)
+   (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
    VALUES
    (l_recname, 'G', ' '
    , NVL(i.estimate_percent,' ')
@@ -785,6 +760,8 @@ BEGIN
    , NVL(i.granularity,' ')
    , NVL(i.incremental,' ')
    , NVL(i.stale_percent,0)
+   , NVL(i.pref_over_param,' ')
+   , NVL(l_lock_stats,' ')
    );
   EXCEPTION WHEN dup_val_on_index THEN
    UPDATE ps_gfc_stats_ovrd
@@ -794,8 +771,30 @@ BEGIN
    ,      granularity = NVL(i.granularity,' ')
    ,      incremental = NVL(i.incremental,' ')
    ,      stale_percent = NVL(i.stale_percent,0)
+   ,      pref_over_param = NVL(i.pref_over_param,' ')
+   ,      lock_stats = NVL(l_lock_stats,' ')
    WHERE  recname = l_recname;
   END;
+ 
+  --merge in lock information for locked type 0 records, or records with current lock overrides
+  MERGE INTO ps_gfc_stats_ovrd u 
+  USING (
+  SELECT r.recname, s.table_name, DECODE(s.stattype_locked,'ALL','Y') lock_stats
+  FROM   user_tab_statistics s
+  ,      psrecdefn r
+         LEFT OUTER JOIN ps_gfc_stats_ovrd o
+           ON o.recname = r.recname
+  WHERE  r.rectype = 0
+  AND    s.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
+  AND    (s.stattype_locked IS NOT NULL OR o.lock_stats IS NOT NULL)
+  ) s
+  ON (u.recname = s.recname)
+  WHEN MATCHED THEN UPDATE
+  SET u.lock_stats = s.lock_stats
+  WHEN NOT MATCHED THEN INSERT
+  (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+  VALUES
+  (s.recname, 'G', ' ', ' ', ' ', ' ', ' ', ' ', 0, ' ', s.lock_stats);
   
  END LOOP;
 END generate_metadata;
@@ -810,8 +809,7 @@ show errors
 --packages can read the table safely
 ------------------------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER gfc_stats_ovrd_metadata
-AFTER INSERT OR UPDATE OF RECNAME, ESTIMATE_PERCENT, METHOD_OPT, DEGREE, GRANULARITY, INCREMENTAL, STALE_PERCENT
-             OR DELETE ON ps_gfc_stats_ovrd
+AFTER INSERT OR UPDATE OR DELETE ON ps_gfc_stats_ovrd
 FOR EACH ROW
 DECLARE
   l_cmd VARCHAR2(100) := '';
@@ -863,25 +861,26 @@ show errors
 ------------------------------------------------------------------------------------------------
 --25.04.2014 replace double semi-colon on end of stored statement with single semi-colon
 ------------------------------------------------------------------------------------------------
-CREATE OR REPLACE TRIGGER gfc_stat_ovrd_stored_stmt
-BEFORE INSERT ON ps_sqlstmt_tbl
-FOR EACH ROW
-WHEN (new.stmt_text LIKE '%UPDATESTATS(%)')
-DECLARE
-  l_jobno NUMBER;
-BEGIN
-  :new.stmt_text := 'BEGIN gfcpsstats11.ps_stats(p_ownname=>user,p_tabname=>'''
-                     ||SUBSTR(:new.stmt_text,14,LENGTH(:new.stmt_text)-14)||'''); END;';
-END;
-/
+DROP TRIGGER gfc_stat_ovrd_stored_stmt;
+--CREATE OR REPLACE TRIGGER gfc_stat_ovrd_stored_stmt
+--BEFORE INSERT ON ps_sqlstmt_tbl
+--FOR EACH ROW
+--WHEN (new.stmt_text LIKE '%UPDATESTATS(%)')
+--DECLARE
+--  l_jobno NUMBER;
+--BEGIN
+--  :new.stmt_text := 'BEGIN gfcpsstats11.ps_stats(p_ownname=>user,p_tabname=>'''
+--                     ||SUBSTR(:new.stmt_text,14,LENGTH(:new.stmt_text)-14)||'''); END;';
+--END;
+--/
 
 --25.04.2014 update statement corrects any stored statements incorrectly updated by previous version of trigger 
-UPDATE 	ps_sqlstmt_Tbl
-SET 	stmt_text = REPLACE(stmt_text,'END;;','END;')
-WHERE 	stmt_text like 'BEGIN%gfcpsstats11.ps_stats(%); END;;'
-/
-COMMIT
-/
+--UPDATE 	ps_sqlstmt_Tbl
+--SET 	stmt_text = REPLACE(stmt_text,'END;;','END;')
+--WHERE 	stmt_text like 'BEGIN%gfcpsstats11.ps_stats(%); END;;'
+--/
+--COMMIT
+--/
 
 
 show errors

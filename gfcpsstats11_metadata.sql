@@ -15,8 +15,8 @@ spool gfcpsstats11_metadata
 
 REM DELETE FROM ps_gfc_stats_ovrd;
 
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
-SELECT 	recname,'G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+SELECT 	recname,'G',' ',' ','FOR ALL COLUMNS SIZE 1',' ',' ',' ',0,' ',' '
 FROM    psrecdefn a
 WHERE   rectype IN(0,7)
 AND     recname IN ('TL_IPT1'       ,'TL_MTCHD'     ,'TL_PMTCH1_TMP' ,'TL_PMTCH2_TMP' ,'TL_PMTCH_TMP1' 
@@ -28,8 +28,8 @@ AND NOT EXISTS(
  	WHERE 	b.recname = a.recname);
 
 
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
-SELECT 	recname,'R',' ',' ',' ',' ',' ',' ',0
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+SELECT 	recname,'R',' ',' ',' ',' ',' ',' ',0,' ',' '
 FROM    psrecdefn a
 WHERE   rectype IN(0,7)
 AND     recname IN('TL_FRCS_PYBL_TM', 'TL_ST_PCHTIME', 'TL_VALID_TR')
@@ -39,8 +39,8 @@ AND NOT EXISTS(
  	WHERE 	b.recname = a.recname)
 ;
 
-INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent)
-SELECT 	DISTINCT recname,'N',' ',' ',' ',' ',' ',' ',0
+INSERT INTO ps_gfc_stats_ovrd (recname, gather_stats, estimate_percent, block_sample, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+SELECT 	DISTINCT recname,'N',' ',' ',' ',' ',' ',' ',0,' ',' '
 FROM	PSAEAPPLTEMPTBL a
 WHERE 	a.ae_applid = 'TL_TIMEADMIN'
 AND NOT EXISTS(

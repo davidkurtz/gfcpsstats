@@ -1,5 +1,5 @@
 REM gfcpsstats11_testdata.sql
-REM (c) Go-Faster Consultancy 2008-2012
+REM (c) Go-Faster Consultancy 2008-2021
 /*------------------------------------------------------------------------------------------
 /* the following commands are to test the stats with gfcpsstats11
 /*------------------------------------------------------------------------------------------
@@ -231,7 +231,7 @@ column degree format a10
 column granularity format a10
 column incremental format a10
 column stale_percent heading 'Stale|Percent' format 999
-column pref_over_param heading 'Pref Over|Param' format a10
+column pref_over_param heading 'Pref Over|Param' format a5
 select * from ps_gfc_stats_ovrd;
 
 update ps_gfc_stats_ovrd

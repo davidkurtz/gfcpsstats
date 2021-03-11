@@ -15,7 +15,7 @@ REM 25.04.2014 TRIGGER gfc_stat_ovrd_stored_stmt: replace double semi-colon on e
 REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppress exception when trying to create duplicate jobs
 REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
 REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
-REM 10.03.2021 enhancements for preferences_overrides_parameters and exceptions to table statistics locking 
+REM 10.03.2021 enhancements for preference_overrides_parameter and exceptions to table statistics locking 
 clear screen
 set echo on serveroutput on lines 180 pages 50 wrap off
 spool gfcpsstats11
@@ -41,16 +41,16 @@ CREATE TABLE sysadm.ps_gfc_stats_ovrd
 ,granularity      VARCHAR2(30)   NOT NULL --same as dbms_stats.granularity parameter
 ,incremental      VARCHAR2(5)    NOT NULL --Y/N - same as dbms_stats table preference INCREMENTAL
 ,stale_percent    NUMBER         NOT NULL --same as dbms_stats table preference STALE_PERCENT
-,pref_over_param  VARCHAR2(1)    NOT NULL --TRUE/FALSE
+,pref_over_param  VARCHAR2(5)    NOT NULL --TRUE/FALSE
 ,lock_stats       VARCHAR2(1)    NOT NULL --Y/N - lock table stats
 ) TABLESPACE PTTBL PCTFREE 10 PCTUSED 80
 /
 
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(1) NOT NULL /*TRUE/FALSE*/;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) NOT NULL /*TRUE/FALSE*/;
 ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) NOT NULL /*Y/N - lock table stats*/;
 
-CREATE UNIQUE  iNDEX sysadm.ps_gfc_stats_ovrd ON sysadm.ps_gfc_stats_ovrd (recname)
-TABLESPACE PSINDEX STORAGE PCTFREE 10 NOPARALLEL LOGGING
+CREATE UNIQUE INDEX sysadm.ps_gfc_stats_ovrd ON sysadm.ps_gfc_stats_ovrd (recname)
+TABLESPACE PSINDEX PCTFREE 10 NOPARALLEL LOGGING
 /
 
 ------------------------------------------------------------------------------------------------
@@ -467,7 +467,7 @@ BEGIN
 --msg('set_table_prefs(tabname=>'||p_tabname||',recname=>'||l_recname||')');
 
  FOR i IN(
-  SELECT o.recname
+  SELECT r.recname, r.rectype
   ,      NULLIF(o.estimate_percent,' ') estimate_percent
   ,      NULLIF(o.method_opt,' ') method_opt
   ,      NULLIF(o.degree,' ') degree
@@ -476,9 +476,10 @@ BEGIN
   ,      NULLIF(o.stale_percent,0) stale_percent
   ,      NULLIF(o.pref_over_param,' ') pref_over_param
   ,      NULLIF(o.lock_stats,' ') lock_stats
-  FROM   user_tables t, psrecdefn r
-   LEFT OUTER JOIN ps_gfc_stats_ovrd o
-   ON   o.recname = r.recname
+  FROM   user_tables t
+  ,      psrecdefn r
+    LEFT OUTER JOIN ps_gfc_stats_ovrd o
+    ON   o.recname = r.recname
   WHERE  r.recname = l_recname
   AND    (  (t.table_name LIKE DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||'%')
          OR (t.table_name LIKE DECODE(r.sqltablename,' ','PSY'||r.recname,r.sqltablename)||'%')
@@ -508,11 +509,12 @@ BEGIN
   END IF;
   
   IF i.lock_stats IS NOT NULL THEN --10.3.2021 not a preference by added to metadata
-    IF i.lock_stats = 'Y' THEN
-	  sys.dbms_stats.lock_table_stats(ownname=>user, tabname=>p_tabname);
-	ELSIF i.lock_stats = 'N' THEN
-	  sys.dbms_stats.unlock_table_stats(ownname=>user, tabname=>p_tabname);
-	END IF;
+    IF i.lock_stats = 'Y' OR (i.lock_stats IS NULL AND i.rectype = 7) THEN
+      sys.dbms_stats.lock_table_stats(ownname=>user, tabname=>p_tabname);
+      sys.dbms_stats.delete_table_stats(ownname=>user, tabname=>p_tabname, force=>TRUE);
+    ELSIF i.lock_stats = 'N' OR (i.lock_stats IS NULL AND i.rectype = 0) THEN
+      sys.dbms_stats.unlock_table_stats(ownname=>user, tabname=>p_tabname);
+    END IF;
   END IF;
   
  END LOOP;

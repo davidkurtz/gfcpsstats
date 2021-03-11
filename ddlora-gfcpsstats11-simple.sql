@@ -1,4 +1,5 @@
 REM ddlora-gfcpsstats11-simple.sql
+REM (c) Go-Faster Consultancy 2008-21
 spool ddlora-gfcpsstats11-simple
 
 UPDATE PSDDLMODEL 

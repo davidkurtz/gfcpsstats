@@ -41,13 +41,23 @@ CREATE TABLE sysadm.ps_gfc_stats_ovrd
 ,granularity      VARCHAR2(30)   NOT NULL --same as dbms_stats.granularity parameter
 ,incremental      VARCHAR2(5)    NOT NULL --Y/N - same as dbms_stats table preference INCREMENTAL
 ,stale_percent    NUMBER         NOT NULL --same as dbms_stats table preference STALE_PERCENT
+,approx_ndv       VARCHAR2(30)   NOT NULL --same as dbms_Stats table preference APPROXIMATE_NDV_ALGORITHM
 ,pref_over_param  VARCHAR2(5)    NOT NULL --TRUE/FALSE
 ,lock_stats       VARCHAR2(1)    NOT NULL --Y/N - lock table stats
 ) TABLESPACE PTTBL PCTFREE 10 PCTUSED 80
 /
 
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) NOT NULL /*TRUE/FALSE*/;
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) NOT NULL /*Y/N - lock table stats*/;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD approx_ndv      VARCHAR2(30);
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) /*TRUE/FALSE*/;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) /*Y/N - lock table stats*/;
+
+UPDATE sysadm.ps_gfc_stats_ovrd SET approx_ndv      = ' ' WHERE pref_over_param IS NULL;
+UPDATE sysadm.ps_gfc_stats_ovrd SET pref_over_param = ' ' WHERE pref_over_param IS NULL;
+UPDATE sysadm.ps_gfc_stats_ovrd SET lock_stats      = ' ' WHERE lock_stats      IS NULL;
+
+ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY approx_ndv      NOT NULL;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY pref_over_param NOT NULL;
+ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY lock_stats      NOT NULL;
 
 CREATE UNIQUE INDEX sysadm.ps_gfc_stats_ovrd ON sysadm.ps_gfc_stats_ovrd (recname)
 TABLESPACE PSINDEX PCTFREE 10 NOPARALLEL LOGGING
@@ -474,6 +484,7 @@ BEGIN
   ,      NULLIF(o.granularity,' ') granularity
   ,      NULLIF(o.incremental,' ') incremental
   ,      NULLIF(o.stale_percent,0) stale_percent
+  ,      NULLIF(o.approx_ndv,' ') approx_ndv
   ,      NULLIF(o.pref_over_param,' ') pref_over_param
   ,      NULLIF(o.lock_stats,' ') lock_stats
   FROM   user_tables t
@@ -493,6 +504,7 @@ BEGIN
  	||',granularity='||i.granularity
  	||',incremental='||i.incremental
 	||',stale_percent='||i.stale_percent
+        ||',approx_ndv='||i.approx_ndv
 	||',pref_over_param='||i.pref_over_param
 	||')');
 
@@ -505,6 +517,7 @@ BEGIN
   set_table_pref(p_tabname=>p_tabname, p_pname=>'STALE_PERCENT',    p_value=>i.stale_percent);
    
   IF l_oraver >= 12.2 THEN --new preference 12.2
+    set_table_pref(p_tabname=>p_tabname, p_pname=>'APPROXIMATE_NDV_ALGORITHM'     , p_value=>i.approx_ndv);
     set_table_pref(p_tabname=>p_tabname, p_pname=>'PREFERENCE_OVERRIDES_PARAMETER', p_value=>i.pref_over_param);
   END IF;
   
@@ -723,6 +736,7 @@ BEGIN
     ,'GRANULARITY' granularity
     ,'INCREMENTAL' incremental
     ,'STALE_PERCENT' stale_percent
+    ,'APPROXIMATE_NDV_ALGORITHM' approx_ndv
     ,'PREFERENCE_OVERRIDES_PARAMETER' pref_over_param
    ))
   ORDER BY table_name
@@ -754,7 +768,7 @@ BEGIN
 
     BEGIN
       INSERT INTO ps_gfc_stats_ovrd
-      (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+      (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, approx_ndv, pref_over_param, lock_stats)
       VALUES
       (l_recname, 'G', ' '
       ,NVL(i.estimate_percent,' ')
@@ -763,6 +777,7 @@ BEGIN
       ,NVL(i.granularity,' ')
       ,NVL(i.incremental,' ')
       ,NVL(i.stale_percent,0)
+      ,NVL(i.approx_ndv,' ')
       ,NVL(i.pref_over_param,' ')
       ,NVL(l_lock_stats,' ')
       );
@@ -774,6 +789,7 @@ BEGIN
       ,      granularity = NVL(i.granularity,' ')
       ,      incremental = NVL(i.incremental,' ')
       ,      stale_percent = NVL(i.stale_percent,0)
+      ,      approx_ndv = NVL(i.approx_ndv,' ')
       ,      pref_over_param = NVL(i.pref_over_param,' ')
       ,      lock_stats = NVL(l_lock_stats,' ')
       WHERE  recname = l_recname;

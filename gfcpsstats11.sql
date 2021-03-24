@@ -15,7 +15,7 @@ REM 25.04.2014 TRIGGER gfc_stat_ovrd_stored_stmt: replace double semi-colon on e
 REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppress exception when trying to create duplicate jobs
 REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
 REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
-REM 10.03.2021 enhancements for preference_overrides_parameter and exceptions to table statistics locking 
+REM 10.03.2021 enhancements for preference_overrides_parameters and exceptions to table statistics locking 
 clear screen
 set echo on serveroutput on lines 180 pages 50 wrap off
 spool gfcpsstats11
@@ -447,7 +447,7 @@ PROCEDURE set_table_pref
 ) IS
 BEGIN
 --msg('set_table_pref(tabname='||p_tabname||',pname='||p_pname||',value='||p_value||')');
- IF p_value IS NULL THEN
+ IF p_value IS NULL OR p_value = ' ' THEN
   sys.dbms_stats.delete_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname);
  ELSE
   sys.dbms_stats.set_table_prefs(ownname=>user, tabname=>p_tabname, pname=>p_pname, pvalue=>p_value);
@@ -812,9 +812,9 @@ BEGIN
   WHEN MATCHED THEN UPDATE
   SET u.lock_stats = s.lock_stats
   WHEN NOT MATCHED THEN INSERT
-  (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, pref_over_param, lock_stats)
+  (recname, gather_stats, block_sample, estimate_percent, method_opt, degree, granularity, incremental, stale_percent, approx_ndv, pref_over_param, lock_stats)
   VALUES
-  (s.recname, 'G', ' ', ' ', ' ', ' ', ' ', ' ', 0, ' ', s.lock_stats);
+  (s.recname, 'G', ' ', ' ', ' ', ' ', ' ', ' ', 0, ' ', ' ', s.lock_stats);
   
  END LOOP;
 END generate_metadata;
@@ -850,6 +850,7 @@ show errors
 ------------------------------------------------------------------------------------------------
 --trigger to set preferences on table as it is created
 ------------------------------------------------------------------------------------------------
+DROP TRIGGER sysadm.gfc_locktemprecstats;
 CREATE OR REPLACE TRIGGER gfc_stats_ovrd_create_table
 AFTER CREATE ON sysadm.schema
 DECLARE

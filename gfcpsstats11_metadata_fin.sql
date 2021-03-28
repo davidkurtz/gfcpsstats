@@ -138,7 +138,7 @@ and    a.recname IN('JRNL_LN','JRNL_VAT','LEDGER','LEDGER_ADB','LEDGER_BUDG')
 WHEN NOT MATCHED THEN INSERT
 (u.recname, u.gather_stats, u.estimate_percent, u.block_sample, u.method_opt, u.degree, u.granularity, u.incremental, u.stale_percent, u.approx_ndv, u.pref_over_param, u.lock_stats) 
 VALUES
-(s.recname, 'G', ' ', ' ', ' ', ' ', s.degree, s.incremental, s.stale_percent, s.approx_ndv, ' ', ' ') 
+(s.recname, 'G', ' ', ' ', ' ', s.degree, ' ', s.incremental, s.stale_percent, s.approx_ndv, ' ', ' ') 
 WHEN MATCHED THEN UPDATE 
 SET u.degree = s.degree 
 ,   u.incremental = s.incremental 

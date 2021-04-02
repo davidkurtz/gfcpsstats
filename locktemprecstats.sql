@@ -3,7 +3,7 @@ REM (c)David Kurtz, Go-Faster Consultancy 2009-21
 REM Delete and lock statistics on working storage tables
 REM 11.03.2021 added exception processes to locking 
 
-set pages 99 lines 100 timi on autotrace off
+set pages 99 lines 100 timi on autotrace off trimspool on
 column recname format a15
 column rectype heading 'Rec|Type' format 99
 column table_name format a18
@@ -46,7 +46,7 @@ AND    t.table_name
        	= DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
 	||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) 
 AND    t.temporary = 'N'
-AND    (((g.lock_stats = 'Y' OR g.lock_stats IS NULL) AND s.stattype_locked IS NULL) --stats not locked
+AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) --stats not locked
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
 ORDER BY 1,3
 /
@@ -93,7 +93,7 @@ BEGIN
 --AND    r.recname IN('TL_PMTCH1_TMP' --TL_TA000600.SLCTPNCH.STATS1.S…
 --                   ,'TL_PMTCH2_TMP' --TL_TA000600.CALC_DUR.STATS1.S…)
 -----------------------------------------------------------------------*/
-  AND    (((g.lock_stats = 'Y' OR g.lock_stats IS NULL) AND s.stattype_locked IS NULL) --stats not locked
+  AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) --stats not locked
          OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
   ) LOOP
     IF x.lock_stats = 'N' THEN

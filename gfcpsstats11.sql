@@ -498,15 +498,15 @@ BEGIN
   AND    t.table_name = p_tabname
  ) LOOP
   msg('set_table_prefs(recname='||l_recname||',tabname='||p_tabname
- 	||',estimate_percent='||i.estimate_percent
- 	||',method_opt='||i.method_opt
- 	||',degree='||i.degree
- 	||',granularity='||i.granularity
- 	||',incremental='||i.incremental
-	||',stale_percent='||i.stale_percent
-        ||',approx_ndv='||i.approx_ndv
-	||',pref_over_param='||i.pref_over_param
-	||')');
+    ||',estimate_percent='||i.estimate_percent
+    ||',method_opt='||i.method_opt
+    ||',degree='||i.degree
+    ||',granularity='||i.granularity
+    ||',incremental='||i.incremental
+    ||',stale_percent='||i.stale_percent
+    ||',approx_ndv='||i.approx_ndv
+    ||',pref_over_param='||i.pref_over_param
+    ||')');
 
   set_table_pref(p_tabname=>p_tabname, p_pname=>'CASCADE'); --10.3.21 - cascade is not in the metadata so we will unset it 
   set_table_pref(p_tabname=>p_tabname, p_pname=>'ESTIMATE_PERCENT', p_value=>i.estimate_percent);

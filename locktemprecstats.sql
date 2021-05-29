@@ -16,15 +16,18 @@ SELECT /*+LEADING(g r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_ana
 ,      s.stattype_locked
 FROM   psrecdefn r
 ,      ps_gfc_stats_ovrd g
-,      user_tables t
-         LEFT OUTER JOIN user_tab_statistics s
-         ON  s.table_name = t.table_name
+,      ps.psdbowner p 
+,      dba_tables t 
+         LEFT OUTER JOIN dba_tab_statistics s 
+         ON  s.owner = t.owner
+         AND s.table_name = t.table_name 
          AND s.partition_name IS NULL
 WHERE  r.rectype = 0
 AND    g.recname = r.recname
-AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
-AND    t.temporary = 'N'
-AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) --stats not locked
+and    t.owner = p.ownerid
+AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename) 
+AND    t.temporary = 'N' 
+AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) /*stats not locked*/
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
 UNION 
 SELECT /*+LEADING(o i r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats
@@ -34,19 +37,22 @@ FROM   psrecdefn r
          ON g.recname = r.recname
 ,      pstemptblcntvw i
 ,      psoptions o
-,      user_tables t	
-	 LEFT OUTER JOIN user_tab_statistics s
-	 ON  s.table_name = t.table_name
+,      ps.psdbowner p 
+,      dba_tables t	 
+	 LEFT OUTER JOIN dba_tab_statistics s 
+	 ON  s.owner = t.owner
+         AND s.table_name = t.table_name 
          AND s.partition_name IS NULL
 ,      (SELECT rownum row_number FROM dual CONNECT BY LEVEL <= 100) v
 WHERE  r.rectype = 7
 AND    r.recname = i.recname
-AND    v.row_number <= i.temptblinstances + o.temptblinstances
+AND    (v.row_number <= i.temptblinstances + o.temptblinstances OR v.row_number = 100)
+and    t.owner = p.ownerid
 AND    t.table_name 
        	= DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
 	||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) 
 AND    t.temporary = 'N'
-AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) --stats not locked
+AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) /*stats not locked*/
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
 ORDER BY 1,3
 /

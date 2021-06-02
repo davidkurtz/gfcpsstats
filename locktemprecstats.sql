@@ -30,7 +30,7 @@ AND    t.temporary = 'N'
 AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) /*stats not locked*/
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
 UNION 
-SELECT /*+LEADING(o i r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats
+SELECT /*+LEADING(p o i r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
 ,      s.stattype_locked
 FROM   psrecdefn r
          LEFT OUTER JOIN ps_gfc_stats_ovrd g
@@ -43,14 +43,14 @@ FROM   psrecdefn r
 	 ON  s.owner = t.owner
          AND s.table_name = t.table_name 
          AND s.partition_name IS NULL
-,      (SELECT rownum row_number FROM dual CONNECT BY LEVEL <= 100) v
-WHERE  r.rectype = 7
-AND    r.recname = i.recname
-AND    (v.row_number <= i.temptblinstances + o.temptblinstances OR v.row_number = 100)
+,      (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v 
+WHERE  r.rectype = 7 
+AND    r.recname = i.recname 
+AND    v.row_number <= i.temptblinstances + o.temptblinstances
 and    t.owner = p.ownerid
 AND    t.table_name 
        	= DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
-	||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) 
+	||DECODE(v.row_number*r.rectype,0,'',LTRIM(TO_NUMBER(v.row_number))) 
 AND    t.temporary = 'N'
 AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) /*stats not locked*/
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
@@ -89,11 +89,11 @@ BEGIN
 	  LEFT OUTER JOIN user_tab_statistics s
 	  ON  s.table_name = t.table_name
           AND s.partition_name IS NULL
-  ,     (SELECT rownum row_number FROM dual CONNECT BY LEVEL <= 100) v
+  ,     (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v
   WHERE r.rectype = '7'
   AND   r.recname = i.recname
   AND   t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
-                     ||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) 
+                     ||DECODE(v.row_number*r.rectype,0,'',LTRIM(TO_NUMBER(v.row_number))) 
   AND   t.temporary = 'N'
 /*---------------------------------------------------------------------            
 --AND    r.recname IN('TL_PMTCH1_TMP' --TL_TA000600.SLCTPNCH.STATS1.S…

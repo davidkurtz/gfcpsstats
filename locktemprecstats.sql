@@ -12,7 +12,7 @@ column num_rows heading 'Num|Rows'
 column stattype_locked heading 'Stattype|Locked' format a8
 ttitle 'Unlocked Temporary Tables'
 spool locktemprecstats app
-SELECT /*+LEADING(g r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats
+SELECT /*+LEADING(p g r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
 ,      s.stattype_locked
 FROM   psrecdefn r
 ,      ps_gfc_stats_ovrd g
@@ -68,8 +68,9 @@ BEGIN
   FROM   psrecdefn r
   ,      ps_gfc_stats_ovrd g
   ,      user_tables t
-           LEFT OUTER JOIN user_tab_statistics s
-           ON  s.table_name = t.table_name
+         LEFT OUTER JOIN dba_tab_statistics s 
+           ON  s.owner = t.owner
+           AND s.table_name = t.table_name
            AND s.partition_name IS NULL
   WHERE  r.rectype = 0
   AND    g.recname = r.recname
@@ -86,8 +87,9 @@ BEGIN
   ,    	pstemptblcntvw i
   ,     psoptions o
   ,     user_tables t	
-	  LEFT OUTER JOIN user_tab_statistics s
-	  ON  s.table_name = t.table_name
+         LEFT OUTER JOIN dba_tab_statistics s 
+           ON  s.owner = t.owner
+           AND s.table_name = t.table_name
           AND s.partition_name IS NULL
   ,     (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v
   WHERE r.rectype = '7'

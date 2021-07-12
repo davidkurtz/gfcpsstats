@@ -828,8 +828,8 @@ show errors
 --using dbms_job because it doesn't commit so jobs only submitted when trigger commits and 
 --packages can read the table safely
 ------------------------------------------------------------------------------------------------
-CREATE OR REPLACE TRIGGER gfc_stats_ovrd_metadata
-AFTER INSERT OR UPDATE OR DELETE ON ps_gfc_stats_ovrd
+CREATE OR REPLACE TRIGGER sysadm.gfc_stats_ovrd_metadata
+AFTER INSERT OR UPDATE OR DELETE ON sysadm.ps_gfc_stats_ovrd
 FOR EACH ROW
 DECLARE
   l_cmd VARCHAR2(100) := '';

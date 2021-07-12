@@ -3,7 +3,7 @@ REM (c) Go-Faster Consultancy 2008-21
 spool ddlora-gfcpsstats11-simple
 
 UPDATE PSDDLMODEL 
-SET    MODEL_STATEMENT = 'DBMS_STATS.GATHER_TABLE_STATS (ownname=> [DBNAME], tabname=>[TBNAME], force=>TRUE);' 
+SET    MODEL_STATEMENT = 'DBMS_STATS.GATHER_TABLE_STATS (ownname=>[DBNAME], tabname=>[TBNAME], force=>TRUE);' 
 WHERE  PLATFORMID=2 
 AND    STATEMENT_TYPE IN (4,5) 
 ;

@@ -216,8 +216,9 @@ pip-log.txt
 .mr.developer.cfg
 
 #################
-## PS360
+## GFC
 #################
-#*.docx
+*.docx
+*.doc
 *.zip
 

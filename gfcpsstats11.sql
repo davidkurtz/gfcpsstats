@@ -1,4 +1,4 @@
-REM gfcpsstats11.sql
+ REM gfcpsstats11.sql
 REM (c) Go-Faster Consultancy 2008-2021
 REM dbms_stats wrapper script for Oracle 11gR2 PT>=8.48
 REM 12. 2.2009 force stats collection on regular tables, skip GTTs
@@ -464,10 +464,7 @@ PROCEDURE set_table_prefs
  l_rectype         INTEGER;
  l_temptblinstance VARCHAR2(2 CHAR) := '';
  l_msg             VARCHAR2(200 CHAR);
- l_oraver          NUMBER;
 BEGIN
- l_oraver := TO_NUMBER(DBMS_DB_VERSION.VERSION|| '.' ||DBMS_DB_VERSION.RELEASE);
- 
  IF p_recname IS NULL THEN
   table_to_recname(p_tabname, l_recname, l_rectype, l_temptblinstance, l_msg);
  ELSE
@@ -516,15 +513,17 @@ BEGIN
   set_table_pref(p_tabname=>p_tabname, p_pname=>'INCREMENTAL',      p_value=>i.incremental);
   set_table_pref(p_tabname=>p_tabname, p_pname=>'STALE_PERCENT',    p_value=>i.stale_percent);
    
-  IF l_oraver >= 12.2 THEN --new preference 12.2
+  $if dbms_db_version.ver_le_12_1 $then $else 
     set_table_pref(p_tabname=>p_tabname, p_pname=>'APPROXIMATE_NDV_ALGORITHM'     , p_value=>i.approx_ndv);
     set_table_pref(p_tabname=>p_tabname, p_pname=>'PREFERENCE_OVERRIDES_PARAMETER', p_value=>i.pref_over_param);
-  END IF;
+  $end
   
   IF i.lock_stats IS NOT NULL THEN --10.3.2021 not a preference by added to metadata
     IF i.lock_stats = 'Y' OR (i.lock_stats IS NULL AND i.rectype = 7) THEN
       sys.dbms_stats.lock_table_stats(ownname=>user, tabname=>p_tabname);
-      sys.dbms_stats.delete_table_stats(ownname=>user, tabname=>p_tabname, force=>TRUE);
+      IF i.rectype = 7 THEN 
+        sys.dbms_stats.delete_table_stats(ownname=>user, tabname=>p_tabname, force=>TRUE);
+      END IF;
     ELSIF i.lock_stats = 'N' OR (i.lock_stats IS NULL AND i.rectype = 0) THEN
       sys.dbms_stats.unlock_table_stats(ownname=>user, tabname=>p_tabname);
     END IF;

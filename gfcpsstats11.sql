@@ -29,9 +29,9 @@ ROLLBACK --just to be safe
 --CASCASE - is not a part of the metadata becasue we always want to cascade, and is the default
 --NOINVALIDATE - is not a part of metadata because we always want to invalidate cursors
 ------------------------------------------------------------------------------------------------
---DROP TABLE sysadm.ps_gfc_stats_ovrd PURGE;
+--DROP TABLE ps_gfc_stats_ovrd PURGE;
 --DROP TRIGGER gfc_stats_ovrd_create_table;
-CREATE TABLE sysadm.ps_gfc_stats_ovrd 
+CREATE TABLE ps_gfc_stats_ovrd 
 (recname          VARCHAR2(15)   NOT NULL --peoplesoft record name
 ,gather_stats     VARCHAR2(1)    NOT NULL --(G)ather Stats / (R)efresh Stats / Do(N)t Gather Stats / (R)efresh stale Stats
 ,estimate_percent VARCHAR2(30)   NOT NULL --same as dbms_stats.estimate_percent parameter
@@ -44,22 +44,27 @@ CREATE TABLE sysadm.ps_gfc_stats_ovrd
 ,approx_ndv       VARCHAR2(30)   NOT NULL --same as dbms_Stats table preference APPROXIMATE_NDV_ALGORITHM
 ,pref_over_param  VARCHAR2(5)    NOT NULL --TRUE/FALSE
 ,lock_stats       VARCHAR2(1)    NOT NULL --Y/N - lock table stats
+,del_stats        VARCHAR2(1)    NOT NULL --Y/N - del table stats if also locking them
 ) TABLESPACE PTTBL PCTFREE 10 PCTUSED 80
 /
 
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD approx_ndv      VARCHAR2(30);
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) /*TRUE/FALSE*/;
-ALTER TABLE sysadm.ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) /*Y/N - lock table stats*/;
+ALTER TABLE ps_gfc_stats_ovrd ADD approx_ndv      VARCHAR2(30);
+ALTER TABLE ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) /*TRUE/FALSE*/;
+ALTER TABLE ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) /*Y/N - lock table stats*/;
+ALTER TABLE ps_gfc_stats_ovrd ADD del_stats       VARCHAR2(1) /*Y/N - delete table stats if also locking them*/;
 
-UPDATE sysadm.ps_gfc_stats_ovrd SET approx_ndv      = ' ' WHERE pref_over_param IS NULL;
-UPDATE sysadm.ps_gfc_stats_ovrd SET pref_over_param = ' ' WHERE pref_over_param IS NULL;
-UPDATE sysadm.ps_gfc_stats_ovrd SET lock_stats      = ' ' WHERE lock_stats      IS NULL;
 
-ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY approx_ndv      NOT NULL;
-ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY pref_over_param NOT NULL;
-ALTER TABLE sysadm.ps_gfc_stats_ovrd MODIFY lock_stats      NOT NULL;
+UPDATE ps_gfc_stats_ovrd SET approx_ndv      = ' ' WHERE pref_over_param IS NULL;
+UPDATE ps_gfc_stats_ovrd SET pref_over_param = ' ' WHERE pref_over_param IS NULL;
+UPDATE ps_gfc_stats_ovrd SET lock_stats      = ' ' WHERE lock_stats      IS NULL;
+UPDATE ps_gfc_stats_ovrd SET del_stats       = ' ' WHERE del_stats       IS NULL;
 
-CREATE UNIQUE INDEX sysadm.ps_gfc_stats_ovrd ON sysadm.ps_gfc_stats_ovrd (recname)
+ALTER TABLE ps_gfc_stats_ovrd MODIFY approx_ndv      NOT NULL;
+ALTER TABLE ps_gfc_stats_ovrd MODIFY pref_over_param NOT NULL;
+ALTER TABLE ps_gfc_stats_ovrd MODIFY lock_stats      NOT NULL;
+ALTER TABLE ps_gfc_stats_ovrd MODIFY del_stats       NOT NULL;
+
+CREATE UNIQUE INDEX ps_gfc_stats_ovrd ON ps_gfc_stats_ovrd (recname)
 TABLESPACE PSINDEX PCTFREE 10 NOPARALLEL LOGGING
 /
 
@@ -73,7 +78,7 @@ TABLESPACE PSINDEX PCTFREE 0
 /
 
 
-CREATE OR REPLACE PACKAGE sysadm.gfcpsstats11 AS
+CREATE OR REPLACE PACKAGE gfcpsstats11 AS
 ------------------------------------------------------------------------------------------------
 --procedure called from DDL model for %UpdateStats
 --24.3.2009 adjusted to call local dbms_stats AND refresh stats
@@ -109,7 +114,7 @@ END gfcpsstats11;
 show errors
 
 ------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PACKAGE BODY sysadm.gfcpsstats11 AS
+CREATE OR REPLACE PACKAGE BODY gfcpsstats11 AS
 ------------------------------------------------------------------------------------------------
  g_lf VARCHAR2(1) := CHR(10); --line feed character
  table_stats_locked EXCEPTION;
@@ -484,6 +489,7 @@ BEGIN
   ,      NULLIF(o.approx_ndv,' ') approx_ndv
   ,      NULLIF(o.pref_over_param,' ') pref_over_param
   ,      NULLIF(o.lock_stats,' ') lock_stats
+  ,      NULLIF(o.del_stats,' ') del_stats
   FROM   user_tables t
   ,      psrecdefn r
     LEFT OUTER JOIN ps_gfc_stats_ovrd o
@@ -521,7 +527,7 @@ BEGIN
   IF i.lock_stats IS NOT NULL THEN --10.3.2021 not a preference by added to metadata
     IF i.lock_stats = 'Y' OR (i.lock_stats IS NULL AND i.rectype = 7) THEN
       sys.dbms_stats.lock_table_stats(ownname=>user, tabname=>p_tabname);
-      IF i.rectype = 7 THEN 
+      IF i.del_stats = 'Y' OR (i.del_stats IS NULL AND i.rectype = 7) THEN 
         sys.dbms_stats.delete_table_stats(ownname=>user, tabname=>p_tabname, force=>TRUE);
       END IF;
     ELSIF i.lock_stats = 'N' OR (i.lock_stats IS NULL AND i.rectype = 0) THEN
@@ -827,8 +833,8 @@ show errors
 --using dbms_job because it doesn't commit so jobs only submitted when trigger commits and 
 --packages can read the table safely
 ------------------------------------------------------------------------------------------------
-CREATE OR REPLACE TRIGGER sysadm.gfc_stats_ovrd_metadata
-AFTER INSERT OR UPDATE OR DELETE ON sysadm.ps_gfc_stats_ovrd
+CREATE OR REPLACE TRIGGER gfc_stats_ovrd_metadata
+AFTER INSERT OR UPDATE OR DELETE ON ps_gfc_stats_ovrd
 FOR EACH ROW
 DECLARE
   l_cmd VARCHAR2(100) := '';
@@ -849,8 +855,8 @@ show errors
 ------------------------------------------------------------------------------------------------
 --trigger to set preferences on table as it is created
 ------------------------------------------------------------------------------------------------
-DROP TRIGGER sysadm.gfc_locktemprecstats;
-CREATE OR REPLACE TRIGGER sysadm.gfc_stats_ovrd_create_table
+DROP TRIGGER gfc_locktemprecstats;
+CREATE OR REPLACE TRIGGER gfc_stats_ovrd_create_table
 AFTER CREATE ON sysadm.schema
 DECLARE
   l_jobno NUMBER;

@@ -1,4 +1,4 @@
- REM gfcpsstats11.sql
+REM gfcpsstats11.sql
 REM (c) Go-Faster Consultancy 2008-2021
 REM dbms_stats wrapper script for Oracle 11gR2 PT>=8.48
 REM 12. 2.2009 force stats collection on regular tables, skip GTTs

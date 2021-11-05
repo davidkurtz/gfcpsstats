@@ -67,13 +67,15 @@ BEGIN
   ,      s.stattype_locked
   FROM   psrecdefn r
   ,      ps_gfc_stats_ovrd g
-  ,      user_tables t
+  ,      ps.psdbowner p 
+  ,      dba_tables t 
          LEFT OUTER JOIN dba_tab_statistics s 
            ON  s.owner = t.owner
            AND s.table_name = t.table_name
            AND s.partition_name IS NULL
   WHERE  r.rectype = 0
   AND    g.recname = r.recname
+  AND    t.owner = p.ownerid
   AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
   AND    t.temporary = 'N'
   AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) --stats not locked
@@ -84,9 +86,10 @@ BEGIN
   FROM   psrecdefn r
            LEFT OUTER JOIN ps_gfc_stats_ovrd g
            ON g.recname = r.recname
-  ,    	pstemptblcntvw i
-  ,     psoptions o
-  ,     user_tables t	
+  ,    	 pstemptblcntvw i
+  ,      psoptions o
+  ,      ps.psdbowner p 
+  ,      dba_tables t 
          LEFT OUTER JOIN dba_tab_statistics s 
            ON  s.owner = t.owner
            AND s.table_name = t.table_name
@@ -94,6 +97,7 @@ BEGIN
   ,     (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v
   WHERE r.rectype = '7'
   AND   r.recname = i.recname
+  AND   t.owner = p.ownerid
   AND   t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
                      ||DECODE(v.row_number*r.rectype,0,'',LTRIM(TO_NUMBER(v.row_number))) 
   AND   t.temporary = 'N'

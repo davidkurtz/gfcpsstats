@@ -3,7 +3,7 @@ REM (c)David Kurtz, Go-Faster Consultancy 2009-21
 REM Delete and lock statistics on working storage tables
 REM 11.03.2021 added exception processes to locking 
 
-set pages 99 lines 100 timi on autotrace off trimspool on
+set pages 99 lines 100 timi on autotrace off trimspool on echo on
 column recname format a15
 column rectype heading 'Rec|Type' format 99
 column table_name format a18
@@ -12,11 +12,16 @@ column num_rows heading 'Num|Rows'
 column stattype_locked heading 'Stattype|Locked' format a8
 ttitle 'Unlocked Temporary Tables'
 spool locktemprecstats app
-SELECT /*+LEADING(p g r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
+WITH p AS (
+  SELECT DISTINCT ownerid FROM ps.psdbowner
+),v as (
+  SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100
+)
+SELECT /*+LEADING(p g r)*/ r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
 ,      s.stattype_locked
 FROM   psrecdefn r
 ,      ps_gfc_stats_ovrd g
-,      ps.psdbowner p 
+,      p 
 ,      dba_tables t 
          LEFT OUTER JOIN dba_tab_statistics s 
          ON  s.owner = t.owner
@@ -30,20 +35,20 @@ AND    t.temporary = 'N'
 AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) /*stats not locked*/
        OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
 UNION 
-SELECT /*+LEADING(p o i r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
+SELECT /*+LEADING(p o r i v)*/ r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats 
 ,      s.stattype_locked
 FROM   psrecdefn r
          LEFT OUTER JOIN ps_gfc_stats_ovrd g
          ON g.recname = r.recname
 ,      pstemptblcntvw i
 ,      psoptions o
-,      ps.psdbowner p 
+,      p 
 ,      dba_tables t	 
 	 LEFT OUTER JOIN dba_tab_statistics s 
 	 ON  s.owner = t.owner
          AND s.table_name = t.table_name 
          AND s.partition_name IS NULL
-,      (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v 
+,      v 
 WHERE  r.rectype = 7 
 AND    r.recname = i.recname 
 AND    v.row_number <= i.temptblinstances + o.temptblinstances
@@ -60,14 +65,20 @@ ORDER BY 1,3
 ttitle off
 
 
+
 set serveroutput on
 BEGIN
  FOR x IN (
-  SELECT /*+LEADING(g r)*/ DISTINCT r.recname, t.table_name, t.last_analyzed, t.num_rows, NVL(g.lock_stats,'N') lock_stats
+  WITH p AS (
+    SELECT DISTINCT ownerid FROM ps.psdbowner
+  ),v as (
+    SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100
+  )
+  SELECT /*+LEADING(g r)*/ r.recname, t.table_name, t.last_analyzed, t.num_rows, NVL(g.lock_stats,'N') lock_stats
   ,      s.stattype_locked
   FROM   psrecdefn r
   ,      ps_gfc_stats_ovrd g
-  ,      ps.psdbowner p 
+  ,      p 
   ,      dba_tables t 
          LEFT OUTER JOIN dba_tab_statistics s 
            ON  s.owner = t.owner
@@ -81,20 +92,20 @@ BEGIN
   AND    ((g.lock_stats = 'Y' AND s.stattype_locked IS NULL) --stats not locked
          OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
   UNION 
-  SELECT /*+LEADING(o i r)*/ r.recname, t.table_name, t.last_analyzed, t.num_rows, NVL(g.lock_stats,'Y') lock_stats
+  SELECT /*+LEADING(p o r i v)*/ r.recname, t.table_name, t.last_analyzed, t.num_rows, NVL(g.lock_stats,'Y') lock_stats
   ,      s.stattype_locked
   FROM   psrecdefn r
            LEFT OUTER JOIN ps_gfc_stats_ovrd g
            ON g.recname = r.recname
   ,    	 pstemptblcntvw i
   ,      psoptions o
-  ,      ps.psdbowner p 
+  ,      p 
   ,      dba_tables t 
          LEFT OUTER JOIN dba_tab_statistics s 
            ON  s.owner = t.owner
            AND s.table_name = t.table_name
           AND s.partition_name IS NULL
-  ,     (SELECT rownum-1 row_number FROM dual CONNECT BY LEVEL <= 100) v
+  ,     v
   WHERE r.rectype = '7'
   AND   r.recname = i.recname
   AND   t.owner = p.ownerid

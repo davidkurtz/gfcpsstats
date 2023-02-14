@@ -16,6 +16,7 @@ REM 01.07.2014 added exception handler to gfc_stats_ovrd_create_table to suppres
 REM 30. 3.2017 force upper case owner and table names - change in behaviour in PT8.55
 REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
 REM 10.03.2021 enhancements for preference_overrides_parameters and exceptions to table statistics locking 
+REM 14.02.2023 specify default values for not null columns, correct update to make APPROX_NDV not nullable
 clear screen
 set echo on serveroutput on lines 180 pages 50 wrap off
 spool gfcpsstats11
@@ -53,8 +54,7 @@ ALTER TABLE ps_gfc_stats_ovrd ADD pref_over_param VARCHAR2(5) /*TRUE/FALSE*/;
 ALTER TABLE ps_gfc_stats_ovrd ADD lock_stats      VARCHAR2(1) /*Y/N - lock table stats*/;
 ALTER TABLE ps_gfc_stats_ovrd ADD del_stats       VARCHAR2(1) /*Y/N - delete table stats if also locking them*/;
 
-
-UPDATE ps_gfc_stats_ovrd SET approx_ndv      = ' ' WHERE pref_over_param IS NULL;
+UPDATE ps_gfc_stats_ovrd SET approx_ndv      = ' ' WHERE approx_ndv      IS NULL;
 UPDATE ps_gfc_stats_ovrd SET pref_over_param = ' ' WHERE pref_over_param IS NULL;
 UPDATE ps_gfc_stats_ovrd SET lock_stats      = ' ' WHERE lock_stats      IS NULL;
 UPDATE ps_gfc_stats_ovrd SET del_stats       = ' ' WHERE del_stats       IS NULL;
@@ -63,6 +63,19 @@ ALTER TABLE ps_gfc_stats_ovrd MODIFY approx_ndv      NOT NULL;
 ALTER TABLE ps_gfc_stats_ovrd MODIFY pref_over_param NOT NULL;
 ALTER TABLE ps_gfc_stats_ovrd MODIFY lock_stats      NOT NULL;
 ALTER TABLE ps_gfc_stats_ovrd MODIFY del_stats       NOT NULL;
+
+ALTER TABLE ps_gfc_stats_ovrd MODIFY gather_stats     DEFAULT 'G';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY estimate_percent DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY block_sample     DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY method_opt       DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY degree           DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY granularity      DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY incremental      DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY stale_percent    DEFAULT 0;
+ALTER TABLE ps_gfc_stats_ovrd MODIFY approx_ndv       DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY pref_over_param  DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY lock_stats       DEFAULT ' ';
+ALTER TABLE ps_gfc_stats_ovrd MODIFY del_stats        DEFAULT ' ';
 
 CREATE UNIQUE INDEX ps_gfc_stats_ovrd ON ps_gfc_stats_ovrd (recname)
 TABLESPACE PSINDEX PCTFREE 10 NOPARALLEL LOGGING

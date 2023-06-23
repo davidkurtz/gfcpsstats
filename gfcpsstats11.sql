@@ -17,6 +17,7 @@ REM 30. 3.2017 force upper case owner and table names - change in behaviour in P
 REM 28.10.2017 apply prefernces to PSY tables to support App Designer alter by recreate, and GFC_ tables for GFC_PSPSART
 REM 10.03.2021 enhancements for preference_overrides_parameters and exceptions to table statistics locking 
 REM 14.02.2023 specify default values for not null columns, correct update to make APPROX_NDV not nullable
+REM 23. 6.2023 refresh table stats if global partition stats and now if not partitioned
 clear screen
 set echo on serveroutput on lines 180 pages 50 wrap off
 spool gfcpsstats11
@@ -261,6 +262,10 @@ BEGIN
   l_force := 'N';
  END IF;
 
+--IF p_verbose THEN --qwert
+--  msg('Force Statistics collection: '||l_force,p_verbose);
+--END IF;
+
  FOR i IN (
   SELECT p.table_owner, p.table_name, p.partition_name, p.subpartition_name
   FROM   all_tab_subpartitions p
@@ -276,6 +281,9 @@ BEGIN
   AND    (  p.num_rows IS NULL
          OR s.stale_stats = 'YES')
  ) LOOP 
+--IF p_verbose THEN
+--  msg('Gather Stats on '||i.table_owner||'.'||i.table_name||' subpartition ('||i.subpartition_name||') force='||l_force,p_verbose);
+--END IF;
   gfcpsstats11.gather_table_stats
   (p_ownname      => i.table_owner
   ,p_tabname      => i.table_name
@@ -305,6 +313,9 @@ BEGIN
   AND    (  p.num_rows IS NULL
          OR s.stale_stats = 'YES')
  ) LOOP
+--IF p_verbose THEN
+--  msg('Gather Stats on '||i.table_owner||'.'||i.table_name||' partition ('||i.partition_name||') force='||l_force,p_verbose);
+--END IF;
   gfcpsstats11.gather_table_stats
   (p_ownname      => i.table_owner
   ,p_tabname      => i.table_name
@@ -329,11 +340,14 @@ BEGIN
   AND    p.table_name = upper(p_tabname) /*30.3.2017 added upper()*/
   AND    (  s.stattype_locked IS NULL 
          OR l_force = 'Y')
-  AND    (  s.global_stats = 'YES'
-         OR s.global_stats IS NULL)  
+  AND    (  s.global_stats = 'YES' -- 23.6.2023 collect stats at table level if partitioned with global stats
+         OR p.partitioned = 'NO')  -- 23.6.2023 collect stats at table level if not partitioned
   AND    (  p.num_rows IS NULL
          OR s.stale_stats = 'YES')
  ) LOOP
+--IF p_verbose THEN
+--  msg('Gather Stats on '||i.owner||'.'||i.table_name||' force='||l_force,p_verbose);
+--END IF;
   gfcpsstats11.gather_table_stats
   (p_ownname      => i.owner
   ,p_tabname      => i.table_name

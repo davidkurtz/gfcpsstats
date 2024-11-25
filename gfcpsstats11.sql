@@ -1,5 +1,6 @@
 REM gfcpsstats11.sql
 REM (c) Go-Faster Consultancy 2008-2021
+REM https://www.psftdba.com/gfcpsstats11.pdf
 REM dbms_stats wrapper script for Oracle 11gR2 PT>=8.48
 REM 12. 2.2009 force stats collection on regular tables, skip GTTs
 REM 24. 3.2009 added refresh procedure for partitioned objects, gather_table_stats proc for wrapping

@@ -1,5 +1,6 @@
 REM ddlora-gfcpsstats11.sql
 REM (c) Go-Faster Consultancy 2008-21
+REM https://www.psftdba.com/gfcpsstats11.pdf
 spool ddlora-gfcpsstats11
 
 UPDATE PSDDLMODEL

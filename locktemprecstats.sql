@@ -1,5 +1,6 @@
 REM locktemprecstats.sql
 REM (c)David Kurtz, Go-Faster Consultancy 2009-21
+REM https://www.psftdba.com/gfcpsstats11.pdf
 REM Delete and lock statistics on working storage tables
 REM 11.03.2021 added exception processes to locking 
 

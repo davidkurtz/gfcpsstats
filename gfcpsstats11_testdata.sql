@@ -1,5 +1,6 @@
 REM gfcpsstats11_testdata.sql
 REM (c) Go-Faster Consultancy 2008-2021
+REM https://www.psftdba.com/gfcpsstats11.pdf
 /*------------------------------------------------------------------------------------------
 /* the following commands are to test the stats with gfcpsstats11
 /*------------------------------------------------------------------------------------------

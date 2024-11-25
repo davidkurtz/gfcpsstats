@@ -1,4 +1,5 @@
 REM gfcpsstats11_metadata.sql
+REM https://www.psftdba.com/gfcpsstats11.pdf
 REM (c) Go-Faster Consultancy 2008-2012
 ------------------------------------------------------------------------------------------
 --this script containts sample meta data table designed to minimize stats collection in TL 

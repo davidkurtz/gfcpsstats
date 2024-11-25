@@ -2,6 +2,7 @@
 --  ddlora-gfcpsstats11.dms (c) Go-Faster Consultancy 2012
 --  ReLoads the PeopleTools DDL tables for Analyze statements for Oracle
 --  calling gfcpsstats11 package
+--  https://www.psftdba.com/gfcpsstats11.pdf
 --  ******************************************************************
 
 SET LOG DDLORA.LOG;

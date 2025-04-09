@@ -52,34 +52,32 @@ BEGIN
   dbms_application_info.set_module(k_module, 'unlockedtables');
 
   FOR i IN (
-    WITH v AS (SELECT rownum row_number FROM dual CONNECT BY LEVEL <= 100)
-    SELECT /*+LEADING(g r)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats
+    WITH v AS (SELECT /*+MATERIALIZE*/ rownum row_number FROM dual CONNECT BY LEVEL <= 100
+    ), x as (
+    SELECT /*+MATERIALIZE*/ DISTINCT r.recname, r.rectype, g.lock_stats
+    ,      DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename) table_name
     FROM   psrecdefn r
     ,      ps_gfc_stats_ovrd g
-    ,      user_tables t
-             LEFT OUTER JOIN user_tab_statistics s ON  s.table_name = t.table_name AND s.partition_name IS NULL
     WHERE  r.rectype = 0
     AND    g.recname = r.recname
-    AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)
-    AND    t.temporary = 'N'
-    AND    (  (g.lock_stats = 'Y' AND s.stattype_locked IS NULL) --stats not locked
-           OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
-    UNION 
-    SELECT /*+LEADING(o r i v)*/ DISTINCT r.recname, r.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, g.lock_stats
+    UNION ALL
+    SELECT /*+LEADING(o r i v)*/ DISTINCT r.recname, r.rectype, NVL(g.lock_stats,'Y') lock_stats
+    ,      DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) table_name
     FROM   psrecdefn r
       LEFT OUTER JOIN ps_gfc_stats_ovrd g ON g.recname = r.recname
     ,      pstemptblcntvw i
     ,      psoptions o
     ,      v
-    ,      user_tables t	
-	     LEFT OUTER JOIN user_tab_statistics s ON s.table_name = t.table_name AND s.partition_name IS NULL
     WHERE  r.rectype = 7
     AND    r.recname = i.recname
     AND    v.row_number <= i.temptblinstances + o.temptblinstances
-    AND    t.table_name = DECODE(r.sqltablename,' ','PS_'||r.recname,r.sqltablename)||DECODE(v.row_number*r.rectype,100,'',LTRIM(TO_NUMBER(v.row_number))) 
-    AND    t.temporary = 'N'
-    AND    ((NVL(g.lock_stats,' ') IN('Y',' ') AND s.stattype_locked IS NULL) --stats not locked
-           OR (g.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
+    )
+    SELECT x.recname, x.rectype, t.table_name, t.last_analyzed, t.num_rows, s.stattype_locked, x.lock_stats
+    FROM x
+      INNER JOIN user_tables t	ON t.temporary = 'N' AND t.table_name = x.table_name
+	     LEFT OUTER JOIN user_tab_statistics s ON s.table_name = t.table_name AND s.partition_name IS NULL
+    WHERE  (  (x.lock_stats = 'Y' AND s.stattype_locked IS NULL) --stats not locked
+           OR (x.lock_stats = 'N' AND s.stattype_locked IS NOT NULL))
     ORDER BY 1,3
     --FETCH FIRST 100 ROWS ONLY
   ) LOOP
@@ -135,3 +133,4 @@ end locktemprecstats;
 /
 show errors
 spool off
+

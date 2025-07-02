@@ -1,5 +1,6 @@
 REM locktemprecstats2.sql
 REM (c)David Kurtz, Go-Faster Consultancy 2009-24
+REM https://www.psftdba.com/gfcpsstats11.pdf
 CLEAR SCREEN
 set serveroutput on timi on pages 999
 @@locktemprecstats_pkg.sql

@@ -1,5 +1,6 @@
 REM locktemprecstats_pkg.sql
 REM (c)David Kurtz, Go-Faster Consultancy 2009-24
+REM https://www.psftdba.com/gfcpsstats11.pdf
 set serveroutput on timi on pages 999 timi on
 spool locktemprecstats_pkg
 --------------------------------------------------------------------------------------------------------------

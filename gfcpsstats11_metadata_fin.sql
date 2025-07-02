@@ -1,5 +1,6 @@
 REM gfcpsstats11_metadata_fin.sql
 REM (c) Go-Faster Consultancy 2008-2021
+REM https://www.psftdba.com/gfcpsstats11.pdf
 ------------------------------------------------------------------------------------------
 --this script containts sample meta data table designed to minimize stats collection in Financials
 --
